@@ -1,0 +1,145 @@
+
+.align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container{
+    background: #FFFFFF !important;
+    width:544px;
+height:588px;
+gap: 10px;
+padding: 72px;
+border-radius: 16px;
+
+}
+.react-datepicker__input-container input {
+    width: 243px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .react-datepicker-popper {
+    z-index: 10; /* Ensures the date picker appears above other elements */
+  }
+  .css-o8pmqo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select{
+    /* min-height:26px !important; */
+
+  }
+  .css-7dkspa-MuiSvgIcon-root-MuiSelect-icon{
+    color:#FF8900 !important;
+  }
+  .cursor-pointer {
+    cursor: pointer !important;
+  }
+  .style-class{
+    font: inherit;
+    letter-spacing: inherit;
+    color: currentColor;
+    border: 2px solid #EAECF0 !important;
+    padding: 4px 0 5px;
+    border-radius: 6px;
+    box-sizing: content-box;
+    background: none;
+    height: 1.4375em;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0;
+    width: 100%;
+    -webkit-animation-name: mui-auto-fill-cancel;
+    animation-name: mui-auto-fill-cancel;
+    -webkit-animation-duration: 10ms;
+    animation-duration: 10ms;
+    padding: 10.5px 4px 10.5px 1px;
+  }
+  .rdt_TableHeadRow{
+    background-color: #FCFCFD !important;
+    border-bottom: 1px solid #EAECF0 !important;
+    font-size: 12px !important;
+    color: #667085;
+    font-weight: 600;
+  }
+  .rdt_TableHeader{
+    font-size: 18px !important;
+  }
+  .dQoVlP{
+color:#101828 !important;
+    font-weight: 500!important;
+  }
+  .dXieBu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: normal !important;
+  }
+  .enBYS{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: normal !important;
+  }
+
+
+  
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 350px;
+}
+
+.each-slide-effect span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
+}
+.step {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #22c55e; /* Green */
+  height: 20px;
+  width: 100px; /* Adjust as needed */
+  border-radius: 10px;
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid white;
+}
+
+.step::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.css-1nmdiq5-menu{
+z-index: 1000 !important;
+}

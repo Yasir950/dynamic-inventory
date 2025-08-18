@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "8669d9ed-d021-4144-8bde-755485a9ba1f",
+		"name": "gshipping",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10090389",
+		"_collection_link": "https://solar-meadow-145609.postman.co/workspace/New-Team-Workspace~ff60d982-e026-4565-86ca-48e2c7898754/collection/10090389-8669d9ed-d021-4144-8bde-755485a9ba1f?action=share&source=collection_link&creator=10090389"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Add users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MjY4MzQ4LCJpYXQiOjE3MzYyNjQ3NDgsImp0aSI6ImJkOGQ4MzYwOWJhNzQ4ZjRiNTY4ZjBkYjg3ZmE1MDFkIiwidXNlcl9pZCI6MX0.wd-SOBPmHui_RoCEJGW2pbzEwhgjrOzBk5ufw8dZ8WE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \r\n        \"first_name\": \"usercrud\",\r\n        \"email\": \"usercrud1@gmail.com\",\r\n        \"password\":\"admin\",\r\n        \"contact_no\": \"6644665464\",\r\n        \"profile_image\": null,\r\n        \"user_type\": \"Management\",\r\n        \"role\": 2,\r\n        \"is_active\": true,\r\n        \"is_superuser\": false\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NDQzODIwLCJpYXQiOjE3MzY0NDAyMjAsImp0aSI6IjBkMjZlNDQxM2RiNjQ4ZDI5OTVjOWJmYzdkOGUxNzZjIiwidXNlcl9pZCI6MX0.Ck8hzUmWlLKnilyeimvYG82N-BQWQRxbnfyaLfUkRho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/auth/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Add Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NDQzODIwLCJpYXQiOjE3MzY0NDAyMjAsImp0aSI6IjBkMjZlNDQxM2RiNjQ4ZDI5OTVjOWJmYzdkOGUxNzZjIiwidXNlcl9pZCI6MX0.Ck8hzUmWlLKnilyeimvYG82N-BQWQRxbnfyaLfUkRho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"sdfdsf\",\r\n    \"is_admin\": false,\r\n    \"permissions\": [1,2,3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/roles/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"roles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListRoles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MzI5NzUyLCJpYXQiOjE3MzYzMjYxNTIsImp0aSI6IjFlNTNmNjNlN2VmYzRlMjVhMDJhY2JhYjZjYjY3N2FjIiwidXNlcl9pZCI6MX0.cFjU45rGLhC-WYSstg1Oh1PCsb7tL8cdv4RwBrezMlM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "••••••"
+							},
+							{
+								"key": "Cookie",
+								"value": "COOKIE_SUPPORT=true; GUEST_LANGUAGE_ID=en_US"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/roles/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"roles",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "Company List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NDQzODIwLCJpYXQiOjE3MzY0NDAyMjAsImp0aSI6IjBkMjZlNDQxM2RiNjQ4ZDI5OTVjOWJmYzdkOGUxNzZjIiwidXNlcl9pZCI6MX0.Ck8hzUmWlLKnilyeimvYG82N-BQWQRxbnfyaLfUkRho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/auth/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2NDQzODIwLCJpYXQiOjE3MzY0NDAyMjAsImp0aSI6IjBkMjZlNDQxM2RiNjQ4ZDI5OTVjOWJmYzdkOGUxNzZjIiwidXNlcl9pZCI6MX0.Ck8hzUmWlLKnilyeimvYG82N-BQWQRxbnfyaLfUkRho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_name\": \"acme\",\r\n    \"authorized_person_name\": \"acmeabc\",\r\n    \"contact_no\": \"546546654\",\r\n    \"email\": \"acme22@gmail.com\",\r\n    \"industry_type\": \"asdas\",\r\n    \"city\": \"jkhk\",\r\n    \"country\": \"jhkj\",\r\n    \"address\": \"hgjgj\",\r\n    \"initial_account_limit\": 23,\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"super@gmail.com\",\r\n    \"password\":\"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://gshipping.khataljazeeraauction.com/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"gshipping",
+						"khataljazeeraauction",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

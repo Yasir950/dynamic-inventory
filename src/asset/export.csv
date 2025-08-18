@@ -1,0 +1,7 @@
+id,first_name,email,contact_no,profile_image,user_type,role,is_active
+1,super,super@gmail.com,034564654,null,,,Active
+2,usercrudss,usercrud1@gmail.com,6644665464,null,Management,administorrole,Active
+8,Muhammad,muhammad6@gmail.com,null,null,Company,usermangers,Active
+14,test,test@gmail.com,test,null,Company,usermangers,Active
+19,test,admin2@mail.com,null,null,Management,role1,Active
+20,ammar,ammar@gmail.com,null,null,Company,usermangers,InActive
