@@ -394,27 +394,6 @@ export const getModels = async () => {
   let json = res.data;
   return json;
 };
-export const getData = async (url) => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + token);
-  const raw = "";
-
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-  let res = await axios.get(
-    `http://34.26.96.206:8000/api/${url}/`,
-    requestOptions
-  );
-  let json = res.data;
-  return json;
-};
 export const saveContainers = async (userData) => {
   const token = localStorage.getItem("token");
 
@@ -981,5 +960,47 @@ export const updateRatesData = async (userData, id) => {
   } catch (error) {
     console.log("Save Rates Error:", error.response);
     toast.error(error.response?.data?.email?.[0] || "Something went wrong");
+  }
+};
+export const getData = async (url) => {
+  const token = localStorage.getItem("token");
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + token);
+  const raw = "";
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  let res = await axios.get(
+    `http://34.26.96.206:8000/api/${url}/`,
+    requestOptions
+  );
+  let json = res.data;
+  return json;
+};
+export const updateData = async (userData, id, url) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: `http://34.26.96.206:8000/api/auth/${url}/${id}/`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: userData,
+  };
+
+  try {
+    const response = await axios.request(config); // Await the API call
+    return response.data; // Return the API response data
+  } catch (error) {
+    toast.error(error.response.data.email[0]);
   }
 };

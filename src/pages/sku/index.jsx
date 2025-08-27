@@ -5,7 +5,7 @@ import MainCard from "components/MainCard";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData } from "apiservices";
+import { getData, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import Example from "pages/vehicles";
@@ -29,7 +29,7 @@ function createData(item) {
     stock_date: item.stock_date,
     created_at: item.created_at,
     updated_at: item.updated_at,
-    supplier: item.supplier,
+    supplier_name: item.supplier_name,
   };
 }
 
@@ -78,7 +78,7 @@ export default function SKUComp() {
     {
       name: "Min Inventory Floor",
       selectorField: "min_inventory_floor",
-
+      editable: true,
       type: "number",
     },
     {
@@ -90,6 +90,7 @@ export default function SKUComp() {
     {
       name: "Custom Lead Time",
       selectorField: "custom_lead_time",
+      editable: true,
 
       type: "number",
     },
@@ -113,11 +114,13 @@ export default function SKUComp() {
     },
     { name: "Stock Date", selectorField: "stock_date" },
     { name: "Created At", selectorField: "created_at" },
-    { name: "Supplier", selectorField: "supplier" },
+    { name: "Supplier Name", selectorField: "supplier_name" },
   ];
 
-  const handleSave = (updatedData) => {
+  const handleSave = async (updatedData) => {
     console.log("Parent received updated data:", updatedData);
+    let res = await updateData(updatedData, updatedData?.id, "skus");
+    console.log("Update response:", res);
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };

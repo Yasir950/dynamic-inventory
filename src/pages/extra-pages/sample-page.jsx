@@ -1,8 +1,19 @@
 // EditableTable.jsx
 import React, { useEffect, useMemo, useState } from "react";
-import { TextField } from "@mui/material";
+import {
+  CircularProgress,
+  FormControl,
+  InputAdornment,
+  OutlinedInput,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import DataTable from "react-data-table-component";
 import dayjs from "dayjs";
+import { ExportBtn } from "styled/styled";
+import { ExportIcon } from "assets/images/users/Svg";
+import { SearchOutlined } from "@ant-design/icons";
 
 /**
  * Props:
@@ -16,6 +27,7 @@ const EditableTable = ({
   columnsConfig = [],
   onSave,
   loading = false,
+  name = "Data Table",
 }) => {
   const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null); // { rowId, field }
@@ -149,7 +161,7 @@ const EditableTable = ({
           return (
             <div style={{ display: "flex", gap: 8 }}>
               <button
-                onClick={() => onSave && handleSaveAll()}
+                onClick={() => onSave && onSave(row)}
                 className="save-btn"
               >
                 Save
@@ -171,7 +183,119 @@ const EditableTable = ({
     console.log("Saving all data:", data);
     onSave?.(data);
   };
+  const CustomLoader = () => (
+    <div style={{ padding: "24px" }}>
+      <CircularProgress />
+      <div>Loading...</div>
+    </div>
+  );
+  function convertArrayOfObjectsToCSV(array) {
+    let result;
 
+    const columnDelimiter = ",";
+    const lineDelimiter = "\n";
+    const keys = Object.keys(data[0]);
+
+    result = "";
+    result += keys.join(columnDelimiter);
+    result += lineDelimiter;
+
+    array?.forEach((item) => {
+      let ctr = 0;
+      keys.forEach((key) => {
+        if (ctr > 0) result += columnDelimiter;
+
+        result += item[key];
+
+        ctr++;
+      });
+      result += lineDelimiter;
+    });
+
+    return result;
+  }
+  function downloadCSV(array) {
+    const link = document.createElement("a");
+    let csv = convertArrayOfObjectsToCSV(array);
+    if (csv == null) return;
+
+    const filename = "export.csv";
+
+    if (!csv.match(/^data:text\/csv/i)) {
+      csv = `data:text/csv;charset=utf-8,${csv}`;
+    }
+
+    link.setAttribute("href", encodeURI(csv));
+    link.setAttribute("download", filename);
+    link.click();
+  }
+  const Export = ({ onExport }) => (
+    <ExportBtn onClick={(e) => onExport(e.target.value)}>
+      <Stack
+        direction={"row"}
+        alignContent={"center"}
+        justifyContent={"center"}
+        spacing={1}
+      >
+        <ExportIcon />
+        <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
+          Export
+        </Typography>
+      </Stack>
+    </ExportBtn>
+  );
+  const subHeaderComponentMemo = React.useMemo(() => {
+    const handleSearch = (event) => {
+      const query = event.target.value.toLowerCase();
+      const filtered = initialData.filter((row) => {
+        return (
+          // add any other fields you want to search
+          Object.values(row).some(
+            (value) =>
+              typeof value === "string" && value.toLowerCase().includes(query)
+          )
+        );
+      });
+      setData(filtered);
+    };
+
+    return (
+      <Stack direction={"row"} justifyContent={"space-between"}>
+        <Typography
+          sx={{ fontSize: "18px", fontWeight: 500, color: "#101828" }}
+        >
+          {name}
+        </Typography>
+        <Stack direction={"row"} spacing={2}>
+          <Export onExport={() => downloadCSV(filteredRows)} />
+          <FormControl
+            sx={{
+              width: { xs: "100%", md: 210 },
+              height: "50px",
+              background: "#ffffff",
+            }}
+          >
+            <OutlinedInput
+              onChange={handleSearch}
+              size="small"
+              id="header-search"
+              sx={{ borderRadius: "6px" }}
+              startAdornment={
+                <InputAdornment position="start" sx={{ mr: -0.5 }}>
+                  <SearchOutlined />
+                </InputAdornment>
+              }
+              aria-describedby="header-search-text"
+              inputProps={{
+                "aria-label": "weight",
+              }}
+              placeholder="Search"
+            />
+          </FormControl>
+        </Stack>
+      </Stack>
+    );
+  }, [data]);
   return (
     <div>
       <DataTable
@@ -180,7 +304,9 @@ const EditableTable = ({
         highlightOnHover
         pagination
         progressPending={!!loading}
-        noHeader
+        subHeader
+        subHeaderComponent={subHeaderComponentMemo}
+        progressComponent={<CustomLoader />}
       />
     </div>
   );
