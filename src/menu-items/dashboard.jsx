@@ -2,11 +2,11 @@
 import {
   DashboardOutlined,
   UsergroupAddOutlined,
-  PieChartOutlined,
-  CarOutlined,
-  SettingOutlined,
+  AppstoreOutlined,
+  TeamOutlined,
+  TruckOutlined,
   CodeSandboxOutlined,
-  DollarOutlined,
+  ToolOutlined,
   LineChartOutlined,
   WalletOutlined,
   AccountBookOutlined,
@@ -16,14 +16,14 @@ import { DotIcon } from "assets/images/users/Svg";
 const icons = {
   DashboardOutlined,
   UsergroupAddOutlined,
-  PieChartOutlined,
-  CarOutlined,
+  AppstoreOutlined,
+  TeamOutlined,
   CodeSandboxOutlined,
-  DollarOutlined,
+  ToolOutlined,
   LineChartOutlined,
   WalletOutlined,
   AccountBookOutlined,
-  SettingOutlined,
+  TruckOutlined,
   DotIcon,
 };
 
@@ -74,7 +74,7 @@ const AdminDashboard = {
       title: "SKU",
       type: "item",
       url: "/sku",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.AppstoreOutlined,
       breadcrumbs: false,
     },
     {
@@ -82,7 +82,7 @@ const AdminDashboard = {
       title: "Supplier",
       type: "item",
       url: "/supplier",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.TeamOutlined,
       breadcrumbs: false,
     },
     {
@@ -90,7 +90,7 @@ const AdminDashboard = {
       title: "Replenishment",
       type: "item",
       url: "/replenishment",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.TruckOutlined,
       breadcrumbs: false,
     },
     {
@@ -98,7 +98,7 @@ const AdminDashboard = {
       title: "Daily Consumption",
       type: "item",
       url: "/daily_consumption",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.LineChartOutlined,
       breadcrumbs: false,
     },
     {
@@ -106,7 +106,7 @@ const AdminDashboard = {
       title: "Adjustment",
       type: "item",
       url: "/adjustment",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.ToolOutlined,
       breadcrumbs: false,
     },
     {

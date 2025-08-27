@@ -113,7 +113,6 @@ export default function SKUComp() {
     },
     { name: "Stock Date", selectorField: "stock_date" },
     { name: "Created At", selectorField: "created_at" },
-    { name: "Updated At", selectorField: "updated_at" },
     { name: "Supplier", selectorField: "supplier" },
   ];
 

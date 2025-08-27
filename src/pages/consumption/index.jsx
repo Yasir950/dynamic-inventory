@@ -88,12 +88,6 @@ export default function ConsumptionComp() {
       type: "date",
       editable: false,
     },
-    {
-      name: "Updated At",
-      selectorField: "updated_at",
-      type: "date",
-      editable: false,
-    },
   ];
 
   const handleSave = (updatedData) => {

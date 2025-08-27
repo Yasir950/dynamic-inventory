@@ -78,6 +78,7 @@ const BpCheckedIcon = styled(BpIcon)({
   },
 });
 function LoginComponent() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     register,
@@ -105,7 +106,6 @@ function LoginComponent() {
     if (res.user) {
       localStorage.setItem("token", res.access);
       dispatch(setToken(res.access));
-      console.log(res);
       localStorage.setItem("username", res.user.first_name);
       localStorage.setItem("email", res.user.email);
       localStorage.setItem("user", JSON.stringify(res.user));
@@ -115,6 +115,7 @@ function LoginComponent() {
         },
         [1000]
       );
+
       window.location.href = "/dashboard";
       toast.success("Login successfully");
     } else {
@@ -145,7 +146,7 @@ function LoginComponent() {
               Login
             </Typography>
             <LabelForm htmlFor="my-input" sx={{ fontSize: "15px" }}>
-              Ship your vehicles, anytime, anywhere
+              Inventron – Manage your inventory, anytime, anywhere.
             </LabelForm>
           </Stack>
 

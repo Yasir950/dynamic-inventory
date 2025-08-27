@@ -54,7 +54,7 @@ export const getUsersData = async () => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://gshipping.khataljazeeraauction.com/api/auth/users/`,
+    `http://34.26.96.206:8000/api/auth/users/`,
     requestOptions
   );
   let json = res.data;

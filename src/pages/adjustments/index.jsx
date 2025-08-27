@@ -91,12 +91,6 @@ export default function ReplenishmentComp() {
       type: "date",
       editable: false,
     },
-    {
-      name: "Updated At",
-      selectorField: "updated_at",
-      type: "date",
-      editable: false,
-    },
   ];
 
   const handleSave = (updatedData) => {
