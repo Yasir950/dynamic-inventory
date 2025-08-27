@@ -143,3 +143,17 @@ color:#101828 !important;
 .css-1nmdiq5-menu{
 z-index: 1000 !important;
 }
+.save-btn {
+  background: transparent;
+  border: 1px solid #FF8900;
+  color: #FF8900;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.save-btn:hover {
+  background: #FF8900;
+  color: #fff;
+}

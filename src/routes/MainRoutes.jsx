@@ -1,110 +1,69 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
 // project import
-import Loadable from 'components/Loadable';
-import Dashboard from 'layout/Dashboard';
-import UsersComp from 'pages/users';
-import CompanyComp from 'pages/company';
-import AddUser from 'pages/users/AddUser';
-import AddRoleComp from 'pages/users/role/addRole';
-import VehicleComp from 'pages/vehicles';
-import TowingCarComp from 'pages/vehicles/TowingCar';
-import WarehouseCarComp from 'pages/vehicles/Warehouse';
-import DamageCarComp from 'pages/vehicles/DamageCar';
-import RatesComp from 'pages/rates';
-import AccountsComp from 'pages/accounts';
-import ContactInfoComp from 'pages/accounts/contact';
-import AdminContainersComp from 'pages/admin-containers';
-import PdfViewer from 'misc/PdfViewer';
-import PaymentComp from 'pages/payments';
-import TrackingScreen from 'pages/track';
-import { Navigate } from 'react-router';
-import TransactionComp from 'pages/payments/transaction';
+import Loadable from "components/Loadable";
+import Dashboard from "layout/Dashboard";
+import UsersComp from "pages/users";
+import AddUser from "pages/users/AddUser";
+import SupplierComp from "pages/supplier";
+import SKUComp from "pages/sku";
+import PdfViewer from "misc/PdfViewer";
+import { Navigate } from "react-router";
+import ConsumptionComp from "pages/consumption";
+import ReplenishmentComp from "pages/replenishments";
+import AdjustmentComp from "pages/adjustments";
 
-const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
+const DashboardDefault = Loadable(lazy(() => import("pages/dashboard/index")));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-
 const MainRoutes = {
-  path: '/',
-  element: <Dashboard /> ,
+  path: "/",
+  element: <Dashboard />,
   children: [
     {
-      path: '/',
-      element: <DashboardDefault />
+      path: "/",
+      element: <DashboardDefault />,
     },
     {
-      path: '/dashboard',
-      element: <DashboardDefault />
+      path: "/dashboard",
+      element: <DashboardDefault />,
     },
     {
-      path: '/view-pdf',
-      element: <PdfViewer />
+      path: "/view-pdf",
+      element: <PdfViewer />,
     },
     {
-      path: 'users',
-      element: <UsersComp />
+      path: "users",
+      element: <UsersComp />,
     },
     {
-      path: 'users/add',
-      element: <AddUser />
+      path: "users/add",
+      element: <AddUser />,
+    },
+
+    {
+      path: "sku",
+      element: <SKUComp />,
     },
     {
-      path: 'users/roles',
-      element: <AddRoleComp />
+      path: "supplier",
+      element: <SupplierComp />,
     },
     {
-      path: 'company',
-      element: <CompanyComp />
-    },
-    
-    {
-      path: 'vehicle',
-      element: <VehicleComp />
+      path: "daily_consumption",
+      element: <ConsumptionComp />,
     },
     {
-      path: 'vehicle/towing',
-      element: <TowingCarComp />
+      path: "replenishment",
+      element: <ReplenishmentComp />,
     },
     {
-      path: 'vehicle/warehouse',
-      element: <WarehouseCarComp />
+      path: "adjustment",
+      element: <AdjustmentComp />,
     },
-    {
-      path: 'vehicle/request',
-      element: <DamageCarComp />
-    },
-    {
-      path: 'containers',
-      element: <AdminContainersComp />
-    },
-    {
-      path: 'payment',
-      element: <PaymentComp />
-    },
-    {
-      path: 'payment/transactions',
-      element: <TransactionComp />
-    },
-    {
-      path: 'rates',
-      element: <RatesComp />
-    },
-    {
-      path: 'account',
-      element: <AccountsComp />
-    },
-    {
-      path: 'account/contact-info',
-      element: <ContactInfoComp />
-    },
-    {
-      path: 'track',
-      element: <TrackingScreen />
-    },
-    { path: '*',  element:<Navigate to="/dashboard" />}
-  ]
+    { path: "*", element: <Navigate to="/dashboard" /> },
+  ],
 };
 
 export default MainRoutes;

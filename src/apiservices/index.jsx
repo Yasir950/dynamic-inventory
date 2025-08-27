@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const login = async (userData) => {
   try {
     let res = await axios.post(
-      `https://gshipping.khataljazeeraauction.com/api/auth/login`,
+      `http://34.26.96.206:8000/api/auth/login`,
       userData
     );
     let json = res.data;
@@ -394,7 +394,7 @@ export const getModels = async () => {
   let json = res.data;
   return json;
 };
-export const getContainers = async () => {
+export const getData = async (url) => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + token);
@@ -409,7 +409,7 @@ export const getContainers = async () => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://gshipping.khataljazeeraauction.com/api/containers/`,
+    `http://34.26.96.206:8000/api/${url}/`,
     requestOptions
   );
   let json = res.data;

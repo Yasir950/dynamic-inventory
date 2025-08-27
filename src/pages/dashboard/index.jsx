@@ -27,6 +27,10 @@ import Header from "layout/Dashboard/Header";
 import Drawer from "layout/Dashboard/Drawer";
 import Select from "react-select";
 import { FilterIcon } from "assets/images/users/Svg";
+import EditableTable from "pages/extra-pages/sample-page";
+import DateRangeComponent from "pages/extra-pages/date-range";
+import Example from "pages/vehicles";
+import DateRangeFilter from "pages/extra-pages/date-range";
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 function createData(
@@ -654,20 +658,7 @@ export default function DashboardDefault() {
           }}
         >
           <FilterIcon />
-          <Select
-            styles={{
-              container: (base) => ({
-                ...base,
-                width: "300px", // Set desired width here
-              }),
-            }}
-            options={companies}
-            value={selectedCompany}
-            onChange={selectCompany}
-            placeholder="Search By Company"
-            isClearable={true}
-            isSearchable={true} // this is default true, can be omitted
-          />
+          <Example />
         </div>
         {/* <DateRangedComp/> */}
       </Stack>
@@ -756,41 +747,6 @@ export default function DashboardDefault() {
                 />
               </Grid>
             </Grid>
-          </MainCard>
-        </Grid>
-        {/* <Grid item xs={12} md={7} lg={4} >
-          <MainCard sx={{ mt: 2, padding: '32px', height: "358px", display: "flex", flexDirection: "column", justifyContent: "space-between" }} content={false} >
-            <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
-              <BoldTypo sx={{ fontSize: "20px", color: "#05004E" }}>Balance OverView</BoldTypo>
-              <ArrowIcon />
-            </Stack>
-            <Box sx={{ pt: 1, pr: 2 }}>
-              <IncomeAreaChart slot={slot} />
-            </Box>
-          </MainCard>
-        </Grid> */}
-        <Grid item xs={12} md={12} lg={12}>
-          <MainCard
-            sx={{
-              mt: 2,
-              padding: "32px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-            content={false}
-          >
-            <Stack
-              flexDirection={"row"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
-              <BoldTypo sx={{ fontSize: "20px", color: "#05004E" }}>
-                Shipping OverView
-              </BoldTypo>
-              <ArrowIcon />
-            </Stack>
-            <SalesChart data={state.shippingOverview} />
           </MainCard>
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
@@ -999,27 +955,8 @@ export default function DashboardDefault() {
                 />
               </Grid>
             </Grid>
-            <ReactTable
-              name={"All Vehicles"}
-              column={headCells}
-              rows={state.vehiclesData}
-            />
           </MainCard>
         </Grid>
-        {/* <Grid item xs={12} md={12} lg={12}>
-          <MainCard
-            sx={{
-              mt: 2,
-              padding: "32px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-            content={false}
-          >
-            <BasicTable data={state.locationData} />
-          </MainCard>
-        </Grid> */}
       </Grid>
     </>
   );

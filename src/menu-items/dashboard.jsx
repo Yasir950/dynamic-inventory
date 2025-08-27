@@ -69,255 +69,64 @@ const AdminDashboard = {
         // },
       ],
     },
-    // {
-    //   id: 'company',
-    //   title: 'Company',
-    //   type: 'collapse',
-    //   url: '/company',
-    //   icon: icons.PieChartOutlined,
-    //   children: [
-
-    //     {
-    //       id: 'company',
-    //       title: 'Manage Companies',
-    //       type: 'item',
-    //       url: '/company',
-    //       icon: icons.DotIcon
-    //     }
-    //   ]
-    // },
-    // {
-    //   id: 'vehicle',
-    //   title: 'Vehicle',
-    //   type: 'collapse',
-    //   url: '/vehicle',
-    //   icon: icons.CarOutlined,
-    //   children: [
-    //     {
-    //       id: 'manage-car',
-    //       title: 'Manage Vehicles',
-    //       type: 'item',
-    //       url: '/vehicle',
-    //       icon: icons.DotIcon
-    //     },
-    //     // {
-    //     //   id: 'towing-car',
-    //     //   title: 'Towing Cars',
-    //     //   type: 'item',
-    //     //   url: '/vehicle/towing',
-    //     //   icon: icons.DotIcon
-    //     // },
-    //     // {
-    //     //   id: 'warehouse-car',
-    //     //   title: 'Warehouse Cars',
-    //     //   type: 'item',
-    //     //   url: '/vehicle/warehouse',
-    //     //   icon: icons.DotIcon
-    //     // },
-    //     // {
-    //     //   id: 'damage-car',
-    //     //   title: 'Damage Cars Request',
-    //     //   type: 'item',
-    //     //   url: '/vehicle/request',
-    //     //   icon: icons.DotIcon
-    //     // }
-    //   ]
-    // },
-    // {
-    //   id: 'containers',
-    //   title: 'Containers',
-    //   type: 'item',
-    //   url: '/containers',
-    //   icon: icons.CodeSandboxOutlined,
-    //   breadcrumbs: false
-    // },
-    // {
-    //   id: 'payments',
-    //   title: 'Payments',
-    //   type: 'collapse',
-    //   url: '/payment',
-    //   icon: icons.WalletOutlined,
-    //   children: [
-    //     {
-    //       id: 'manage-payment',
-    //       title: 'Manage Payments',
-    //       type: 'item',
-    //       url: '/payment',
-    //       icon: icons.DotIcon
-    //     },
-    //     {
-    //       id: 'manage-transactions',
-    //       title: 'Manage Transactions',
-    //       type: 'item',
-    //       url: '/payment/transactions',
-    //       icon: icons.DotIcon
-    //     },
-
-    //   ]
-    // },
-    // {
-    //   id: 'track',
-    //   title: 'Track',
-    //   type: 'item',
-    //   url: '/track',
-    //   icon: icons.LineChartOutlined,
-
-    // },
-    // {
-    //   id: 'rates',
-    //   title: 'Rates',
-    //   type: 'item',
-    //   url: '/rates',
-    //   icon: icons.DollarOutlined,
-    //   breadcrumbs: false
-    // },
-    // {
-    //   id: 'account',
-    //   title: 'Account',
-    //   type: 'collapse',
-    //   url: '/account',
-    //   icon: icons.SettingOutlined,
-    //   children: [
-    //     {
-    //       id: 'account-setting',
-    //       title: 'Account Setting',
-    //       type: 'item',
-    //       url: '/account',
-    //       icon: icons.DotIcon
-    //     },
-    //     // {
-    //     //   id: 'contact-info',
-    //     //   title: 'Contact Information',
-    //     //   type: 'item',
-    //     //   url: '/account/contact-info',
-    //     //   icon: icons.DotIcon
-    //     // }
-    //   ]
-    // },
-  ],
-};
-const UserDashboard = {
-  id: "group-dashboard",
-  type: "group",
-  children: [
     {
-      id: "dashboard",
-      title: "Dashboard",
+      id: "sku",
+      title: "SKU",
       type: "item",
-      url: "/dashboard",
-      icon: icons.DashboardOutlined,
-      breadcrumbs: true,
-    },
-
-    {
-      id: "vehicle",
-      title: "Vehicle",
-      type: "collapse",
-      url: "/vehicle",
-      icon: icons.CarOutlined,
-      children: [
-        {
-          id: "manage-car",
-          title: "Manage Vehicles",
-          type: "item",
-          url: "/vehicle",
-          icon: icons.DotIcon,
-        },
-        // {
-        //   id: 'towing-car',
-        //   title: 'Towing Cars',
-        //   type: 'item',
-        //   url: '/vehicle/towing',
-        //   icon: icons.DotIcon
-        // },
-        // {
-        //   id: 'warehouse-car',
-        //   title: 'Warehouse Cars',
-        //   type: 'item',
-        //   url: '/vehicle/warehouse',
-        //   icon: icons.DotIcon
-        // },
-        // {
-        //   id: 'damage-car',
-        //   title: 'Damage Cars Request',
-        //   type: 'item',
-        //   url: '/vehicle/request',
-        //   icon: icons.DotIcon
-        // }
-      ],
-    },
-    {
-      id: "containers",
-      title: "Containers",
-      type: "item",
-      url: "/containers",
+      url: "/sku",
       icon: icons.CodeSandboxOutlined,
       breadcrumbs: false,
     },
     {
-      id: "payments",
-      title: "Payments",
-      type: "collapse",
-      url: "/payment",
-      icon: icons.WalletOutlined,
-      children: [
-        {
-          id: "manage-payment",
-          title: "Manage Payments",
-          type: "item",
-          url: "/payment",
-          icon: icons.DotIcon,
-        },
-        {
-          id: "manage-transactions",
-          title: "Manage Transactions",
-          type: "item",
-          url: "/payment/transactions",
-          icon: icons.DotIcon,
-        },
-      ],
-    },
-    {
-      id: "rates",
-      title: "Rates",
+      id: "supplier",
+      title: "Supplier",
       type: "item",
-      url: "/rates",
-      icon: icons.DollarOutlined,
+      url: "/supplier",
+      icon: icons.CodeSandboxOutlined,
       breadcrumbs: false,
     },
     {
-      id: "account",
-      title: "Account",
-      type: "collapse",
-      url: "/account",
-      icon: icons.AccountBookOutlined,
-      children: [
-        {
-          id: "account-setting",
-          title: "Account Setting",
-          type: "item",
-          url: "/account",
-          icon: icons.DotIcon,
-        },
-        // {
-        //   id: 'contact-info',
-        //   title: 'Contact Information',
-        //   type: 'item',
-        //   url: '/account/contact-info',
-        //   icon: icons.DotIcon
-        // }
-      ],
+      id: "replenishment",
+      title: "Replenishment",
+      type: "item",
+      url: "/replenishment",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
     },
     {
-      id: "track",
-      title: "Track",
+      id: "daily_consumption",
+      title: "Daily Consumption",
       type: "item",
-      url: "/track",
-      icon: icons.LineChartOutlined,
+      url: "/daily_consumption",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
+    },
+    {
+      id: "adjustment",
+      title: "Adjustment",
+      type: "item",
+      url: "/adjustment",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
+    },
+    {
+      id: "forecast",
+      title: "Forecast",
+      type: "item",
+      url: "/forecast",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
+    },
+    {
+      id: "promotion_forecast",
+      title: "Promotion Forecast",
+      type: "item",
+      url: "/promotion_forecast",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
     },
   ],
 };
-const dashboard =
-  !user?.is_superuser && user?.company ? UserDashboard : AdminDashboard;
-console.log(!user?.is_superuser && user?.company);
+
+const dashboard = AdminDashboard;
 export default dashboard;
