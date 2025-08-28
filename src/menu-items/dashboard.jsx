@@ -8,7 +8,7 @@ import {
   CodeSandboxOutlined,
   ToolOutlined,
   LineChartOutlined,
-  WalletOutlined,
+  FieldTimeOutlined,
   AccountBookOutlined,
 } from "@ant-design/icons";
 import { DotIcon } from "assets/images/users/Svg";
@@ -21,7 +21,7 @@ const icons = {
   CodeSandboxOutlined,
   ToolOutlined,
   LineChartOutlined,
-  WalletOutlined,
+  FieldTimeOutlined,
   AccountBookOutlined,
   TruckOutlined,
   DotIcon,
@@ -114,7 +114,7 @@ const AdminDashboard = {
       title: "Forecast",
       type: "item",
       url: "/forecast",
-      icon: icons.CodeSandboxOutlined,
+      icon: icons.FieldTimeOutlined,
       breadcrumbs: false,
     },
     {
