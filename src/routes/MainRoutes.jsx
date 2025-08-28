@@ -12,6 +12,8 @@ import { Navigate } from "react-router";
 import ConsumptionComp from "pages/consumption";
 import ReplenishmentComp from "pages/replenishments";
 import AdjustmentComp from "pages/adjustments";
+import ForecastComp from "pages/forecast";
+import PromotionForecastComp from "pages/promotion";
 
 const DashboardDefault = Loadable(lazy(() => import("pages/dashboard/index")));
 
@@ -61,6 +63,14 @@ const MainRoutes = {
     {
       path: "adjustment",
       element: <AdjustmentComp />,
+    },
+    {
+      path: "forecast",
+      element: <ForecastComp />,
+    },
+    {
+      path: "promotion_forecast",
+      element: <PromotionForecastComp />,
     },
     { path: "*", element: <Navigate to="/dashboard" /> },
   ],

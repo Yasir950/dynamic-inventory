@@ -1004,3 +1004,45 @@ export const updateData = async (userData, id, url) => {
     toast.error(error.response.data.email[0]);
   }
 };
+export const saveForecast = async (userData) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "http://34.26.96.206:8000/api/forecasts/",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: userData,
+  };
+
+  try {
+    const response = await axios.request(config); // Await the API call
+    return response.data; // Return the API response data
+  } catch (error) {
+    toast.error(error.response.data.container_number[0]);
+  }
+};
+export const savePromotionForecast = async (userData) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "http://34.26.96.206:8000/api/promotion-forecasts/",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    data: userData,
+  };
+
+  try {
+    const response = await axios.request(config); // Await the API call
+    return response.data; // Return the API response data
+  } catch (error) {
+    toast.error(error.response.data.container_number[0]);
+  }
+};
