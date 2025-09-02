@@ -94,12 +94,30 @@ const AdminDashboard = {
       breadcrumbs: false,
     },
     {
-      id: "daily_consumption",
-      title: "Daily Consumption",
-      type: "item",
-      url: "/daily_consumption",
+      id: "consumption",
+      title: "Consumption",
+      type: "collapse",
+      url: "/consumption",
       icon: icons.LineChartOutlined,
-      breadcrumbs: false,
+      breadcrumbs: true,
+      children: [
+        {
+          id: "daily_consumption",
+          title: "Daily Consumption",
+          type: "item",
+          url: "/consumption/daily",
+          icon: icons.DotIcon,
+          breadcrumbs: false,
+        },
+        {
+          id: "weekly_consumption",
+          title: "Weekly Consumption",
+          type: "item",
+          url: "/consumption/weekly",
+          icon: icons.DotIcon,
+          breadcrumbs: false,
+        },
+      ],
     },
     {
       id: "adjustment",
@@ -117,14 +135,14 @@ const AdminDashboard = {
       icon: icons.FieldTimeOutlined,
       breadcrumbs: false,
     },
-    {
-      id: "promotion_forecast",
-      title: "Promotion Forecast",
-      type: "item",
-      url: "/promotion_forecast",
-      icon: icons.CodeSandboxOutlined,
-      breadcrumbs: false,
-    },
+    // {
+    //   id: "promotion_forecast",
+    //   title: "Promotion Forecast",
+    //   type: "item",
+    //   url: "/promotion_forecast",
+    //   icon: icons.CodeSandboxOutlined,
+    //   breadcrumbs: false,
+    // },
   ],
 };
 

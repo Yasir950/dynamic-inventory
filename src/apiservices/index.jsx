@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const login = async (userData) => {
   try {
     let res = await axios.post(
-      `http://34.26.96.206:8000/api/auth/login`,
+      `https://inventory.nikahgo.com/api/auth/login`,
       userData
     );
     let json = res.data;
@@ -54,7 +54,7 @@ export const getUsersData = async () => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `http://34.26.96.206:8000/api/auth/users/`,
+    `https://inventory.nikahgo.com/api/auth/users/`,
     requestOptions
   );
   let json = res.data;
@@ -977,7 +977,7 @@ export const getData = async (url) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `http://34.26.96.206:8000/api/${url}/`,
+    `https://inventory.nikahgo.com/api/${url}/`,
     requestOptions
   );
   let json = res.data;
@@ -987,14 +987,34 @@ export const updateData = async (userData, id, url) => {
   const token = localStorage.getItem("token");
 
   let config = {
-    method: "post",
+    method: "patch",
     maxBodyLength: Infinity,
-    url: `http://34.26.96.206:8000/api/auth/${url}/${id}/`,
+    url: `https://inventory.nikahgo.com/api/${url}/${id}/`,
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
     data: userData,
+  };
+
+  try {
+    const response = await axios.request(config); // Await the API call
+    return response.data; // Return the API response data
+  } catch (error) {
+    toast.error(error.response.data.email[0]);
+  }
+};
+export const deleteData = async (url, id) => {
+  const token = localStorage.getItem("token");
+
+  let config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: `https://inventory.nikahgo.com/api/${url}/${id}/`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
   };
 
   try {
@@ -1010,7 +1030,7 @@ export const saveForecast = async (userData) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://34.26.96.206:8000/api/forecasts/",
+    url: "https://inventory.nikahgo.com/api/forecasts/",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1025,13 +1045,14 @@ export const saveForecast = async (userData) => {
     toast.error(error.response.data.container_number[0]);
   }
 };
+
 export const savePromotionForecast = async (userData) => {
   const token = localStorage.getItem("token");
 
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://34.26.96.206:8000/api/promotion-forecasts/",
+    url: "https://inventory.nikahgo.com/api/promotion-forecasts/",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1045,4 +1066,25 @@ export const savePromotionForecast = async (userData) => {
   } catch (error) {
     toast.error(error.response.data.container_number[0]);
   }
+};
+export const getWeeklyData = async (url, num) => {
+  const token = localStorage.getItem("token");
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer " + token);
+  const raw = "";
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  let res = await axios.get(
+    `https://inventory.nikahgo.com/api/${url}?week_number=${num}`,
+    requestOptions
+  );
+  let json = res.data;
+  return json;
 };

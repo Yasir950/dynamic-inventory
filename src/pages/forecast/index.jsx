@@ -1,21 +1,21 @@
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import MainCard from "components/MainCard";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData, saveForecast, updateData } from "apiservices";
+import { deleteData, getData, saveForecast, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useDispatch, useSelector } from "react-redux";
 import Example from "pages/vehicles";
 import { FilterIcon } from "assets/images/users/Svg";
 import { AddBtn, ExportBtn, MyBtn } from "styled/styled";
-import { changeForm, clearData } from "redux/slices/userSlice";
+import { changeForm, clearData, updatedData } from "redux/slices/userSlice";
 import { Box, FormHelperText, InputLabel, TextField } from "@mui/material";
 import Alert from "misc/dialogue";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { DeleteIcon, EditIcon } from "assets/images/users/Svg";
 
 // ===============================|| COMPONENT - SKU ||=============================== //
 
@@ -28,24 +28,26 @@ function createData(item) {
     forecast_start_date: item.forecast_start_date,
     forecast_end_date: item.forecast_end_date,
     forecasted_quantity: item.forecasted_quantity,
+    forcast_name: item.forcast_name,
+    forcast_type: item.forcast_type,
   };
 }
-
-const columnsConfig = [
-  { name: "ID", selectorField: "id", width: "70px" },
-  { name: "SKU", selectorField: "sku" },
-  { name: "Location", selectorField: "location" },
-  { name: "Forecast Start Date", selectorField: "forecast_start_date" },
-  { name: "Forecast End Date", selectorField: "forecast_end_date" },
-  {
-    name: "Forecasted Quantity",
-    selectorField: "forecasted_quantity",
-    editable: true,
-    type: "number",
-  },
-];
-
 export default function ForecastComp() {
+  const columnsConfig = [
+    { name: "ID", selectorField: "id", width: "70px" },
+    { name: "SKU", selectorField: "sku" },
+    { name: "Forcast Name", selectorField: "forcast_name" },
+    { name: "Forcast Type", selectorField: "forcast_type" },
+    { name: "Location", selectorField: "location" },
+    { name: "Forecast Start Date", selectorField: "forecast_start_date" },
+    { name: "Forecast End Date", selectorField: "forecast_end_date" },
+    {
+      name: "Forecasted Quantity",
+      selectorField: "forecasted_quantity",
+      editable: true,
+      type: "number",
+    },
+  ];
   const {
     register,
     handleSubmit,
@@ -59,6 +61,16 @@ export default function ForecastComp() {
   const isAddForm = useSelector((state) => state.user.isAddForm);
   useEffect(() => {
     getContainersData();
+    if (updatedObj) {
+      reset({
+        id: updatedObj?.id,
+        sku: updatedObj?.sku,
+        location: updatedObj?.location,
+        forecast_start_date: updatedObj?.forecast_start_date,
+        forecast_end_date: updatedObj?.forecast_end_date,
+        forecasted_quantity: updatedObj?.forecasted_quantity,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
@@ -88,40 +100,39 @@ export default function ForecastComp() {
     dispatch(changeForm());
     dispatch(clearData());
   };
-
+  const handleEdit = (row) => {
+    dispatch(updatedData(row));
+  };
+  const handleDelete = async (id) => {
+    let res = await deleteData("forecasts", id);
+    getContainersData();
+    toast.error("Data deleted successfully");
+  };
   const handleSave = async (updatedData) => {
     console.log("Parent received updated data:", updatedData);
-    let res = await updateData(updatedData, updatedData?.id, "skus");
+    let res = await updateData(updatedData, updatedData?.id, "forecasts");
     console.log("Update response:", res);
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
   const onSubmit = async (data) => {
-    console.log("Form Data Submitted:", data);
-    let res = await saveForecast(data);
-    if (res) {
-      console.log(res);
-      toast.success("Forecast saved successfully");
-      getContainersData();
-      handleAddOpen();
+    if (updatedObj) {
+      let res = await updateData(data, updatedObj?.id, "forecasts");
+      if (res) {
+        console.log(res);
+        toast.success("Data saved successfully");
+        getContainersData();
+        handleAddOpen();
+      }
+    } else {
+      let res = await saveForecast(data);
+      if (res) {
+        console.log(res);
+        toast.success("Data saved successfully");
+        getContainersData();
+        handleAddOpen();
+      }
     }
-    // if (updatedObj) {
-    //   let userData = { ...data, id:updatedObj.id };
-    //   let res = await updateContainers(userData, updatedObj?.id);
-    //   if (res?.id) {
-    //     toast.success("Container updated successfully");
-    //     getContainersData();
-    //     handleAddOpen();
-    //   }
-    // } else {
-    //   let userData = { ...data};
-    //   let res = await saveContainers(userData);
-    //   if (res) {
-    //     toast.success("Container saved successfully");
-    //     getContainersData();
-    //     handleAddOpen();
-    //   }
-    // }
   };
   return (
     <Grid item xs={12} md={12} lg={12}>
@@ -153,6 +164,9 @@ export default function ForecastComp() {
         columnsConfig={columnsConfig}
         onSave={handleSave}
         loading={pending}
+        edit={handleEdit}
+        handleDelete={handleDelete}
+        name="Forecast"
       />
       <Alert
         open={isAddForm}
@@ -170,7 +184,7 @@ export default function ForecastComp() {
             <Grid container spacing={2}>
               {/* Left Side */}
               <Grid item xs={12} sm={6}>
-                <InputLabel sx={{ mb: 1 }}>SKU ID</InputLabel>
+                <InputLabel sx={{ mb: 1 }}>SKU</InputLabel>
                 <TextField
                   error={!!errors.sku}
                   helperText={errors.sku?.message}
@@ -178,6 +192,34 @@ export default function ForecastComp() {
                   fullWidth
                 />
                 {errors.sku && (
+                  <FormHelperText style={{ color: "red", marginLeft: "0px" }}>
+                    {"please fill this field"}
+                  </FormHelperText>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputLabel sx={{ mb: 1 }}>Forcast Name</InputLabel>
+                <TextField
+                  error={!!errors.forcast_name}
+                  helperText={errors.forcast_name?.message}
+                  {...register("forcast_name", { required: true })}
+                  fullWidth
+                />
+                {errors.forcast_name && (
+                  <FormHelperText style={{ color: "red", marginLeft: "0px" }}>
+                    {"please fill this field"}
+                  </FormHelperText>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <InputLabel sx={{ mb: 1 }}>Forcast Type</InputLabel>
+                <TextField
+                  error={!!errors.forcast_type}
+                  helperText={errors.forcast_type?.message}
+                  {...register("forcast_type", { required: true })}
+                  fullWidth
+                />
+                {errors.forcast_type && (
                   <FormHelperText style={{ color: "red", marginLeft: "0px" }}>
                     {"please fill this field"}
                   </FormHelperText>

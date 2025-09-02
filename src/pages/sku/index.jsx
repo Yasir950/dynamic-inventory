@@ -30,6 +30,7 @@ function createData(item) {
     created_at: item.created_at,
     updated_at: item.updated_at,
     supplier_name: item.supplier_name,
+    target: item.target,
   };
 }
 
@@ -115,6 +116,7 @@ export default function SKUComp() {
     { name: "Stock Date", selectorField: "stock_date" },
     { name: "Created At", selectorField: "created_at" },
     { name: "Supplier Name", selectorField: "supplier_name" },
+    { name: "Target", selectorField: "target" },
   ];
 
   const handleSave = async (updatedData) => {

@@ -22,7 +22,7 @@ import { SearchOutlined } from "@ant-design/icons";
  * - onSave: function(updatedRowsOrAll) - called with array
  * - loading: boolean (optional) -> progressPending for DataTable
  */
-const EditableTable = ({
+const WeeklyTable = ({
   initialData = [],
   columnsConfig = [],
   onSave,
@@ -30,6 +30,7 @@ const EditableTable = ({
   edit,
   handleDelete,
   name,
+  week,
 }) => {
   const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null); // { rowId, field }
@@ -289,13 +290,21 @@ const EditableTable = ({
 
     return (
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography
-          sx={{ fontSize: "18px", fontWeight: 500, color: "#101828" }}
+        <ExportBtn
+          sx={{
+            width: "300px",
+            background: "#FF8900",
+            border: "1px solid #FF8900",
+            borderRadius: "6px",
+          }}
         >
-          {/* {name} */}
-        </Typography>
+          <Typography sx={{ fontSize: "15px", fontWeight: 500, color: "#FFF" }}>
+            Week: {week}
+          </Typography>
+        </ExportBtn>
+
         <Stack direction={"row"} spacing={2}>
-          <Export onExport={() => downloadCSV(filteredRows)} />
+          {/* <Export onExport={() => downloadCSV(filteredRows)} /> */}
           <FormControl
             sx={{
               width: { xs: "100%", md: 210 },
@@ -342,4 +351,4 @@ const EditableTable = ({
   );
 };
 
-export default EditableTable;
+export default WeeklyTable;

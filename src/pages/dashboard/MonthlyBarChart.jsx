@@ -1,80 +1,79 @@
-import { useEffect, useState } from 'react';
+import React from "react";
+import ReactApexChart from "react-apexcharts";
 
-// material-ui
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-
-// third-party
-import ReactApexChart from 'react-apexcharts';
-
-// chart options
-const barChartOptions = {
-  chart: {
-    type: 'bar',
-    height: 365,
-    toolbar: {
-      show: false
-    }
-  },
-  plotOptions: {
-    bar: {
-      columnWidth: '45%',
-      borderRadius: 4
-    }
-  },
-  dataLabels: {
-    enabled: false
-  },
-  xaxis: {
-    categories: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-    axisBorder: {
-      show: false
-    },
-    axisTicks: {
-      show: false
-    }
-  },
-  yaxis: {
-    show: false
-  },
-  grid: {
-    show: false
-  }
-};
-
-// ==============================|| MONTHLY BAR CHART ||============================== //
-
-export default function MonthlyBarChart() {
-  const theme = useTheme();
-
-  const { primary, secondary } = theme.palette.text;
-  const info = theme.palette.info.light;
-
-  const [series] = useState([
+const StackedWithLine = () => {
+  const series = [
+    // 🔵 Stacked bars (all on the same stack)
+    { name: "Income", type: "bar", data: [44, 55, 41, 67, 22, 43, 21, 49] },
+    { name: "Cashflow", type: "bar", data: [13, 23, 20, 8, 13, 27, 33, 12] },
+    { name: "Expenses", type: "bar", data: [11, 17, 15, 15, 21, 14, 20, 8] },
+    // 🟡 Line (not stacked)
     {
-      data: [80, 95, 70, 42, 65, 55, 78]
-    }
-  ]);
+      name: "Revenue",
+      type: "line",
+      data: [90, 120, 100, 130, 80, 95, 110, 140],
+    },
+  ];
 
-  const [options, setOptions] = useState(barChartOptions);
-
-  useEffect(() => {
-    setOptions((prevState) => ({
-      ...prevState,
-      colors: [info],
-      xaxis: {
-        labels: {
-          style: {
-            colors: [secondary, secondary, secondary, secondary, secondary, secondary, secondary]
-          }
-        }
-      }
-    }));
-  }, [primary, info, secondary]);
+  const options = {
+    chart: {
+      type: "line", // mixed chart
+      stacked: true, // stacks only the BAR series
+      height: 420,
+      toolbar: { show: true },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false, // ⬅️ vertical columns (required for stacked+line)
+        columnWidth: "45%",
+        borderRadius: 4,
+      },
+    },
+    // bars no stroke; line has stroke
+    stroke: { width: [0, 0, 0, 3] },
+    // 3 bar colors + 1 line color
+    colors: ["#1E88E5", "#00C853", "#E53935", "#F9A825"],
+    dataLabels: { enabled: false },
+    xaxis: {
+      categories: [
+        "2009",
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+      ],
+    },
+    yaxis: [
+      {
+        // left axis for stacked bars
+        title: { text: "Values" },
+      },
+      {
+        // right axis for the line
+        seriesName: "Revenue", // binds this axis to the "Revenue" series
+        opposite: true,
+        title: { text: "Revenue" },
+      },
+    ],
+    legend: { position: "top" },
+    tooltip: { shared: true, intersect: false },
+    fill: { opacity: [0.9, 0.9, 0.9, 1] },
+    markers: { size: [0, 0, 0, 4] }, // show marker only for line
+  };
 
   return (
-    <Box id="chart" sx={{ bgcolor: 'transparent' }}>
-      <ReactApexChart options={options} series={series} type="bar" height={365} />
-    </Box>
+    <div>
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="line"
+        height={420}
+      />
+    </div>
   );
-}
+};
+
+export default StackedWithLine;

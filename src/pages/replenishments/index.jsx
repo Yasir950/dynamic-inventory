@@ -5,7 +5,7 @@ import MainCard from "components/MainCard";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData } from "apiservices";
+import { getData, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import { FilterIcon } from "assets/images/users/Svg";
@@ -113,8 +113,10 @@ export default function ReplenishmentComp() {
     },
   ];
 
-  const handleSave = (updatedData) => {
+  const handleSave = async (updatedData) => {
     console.log("Parent received updated data:", updatedData);
+    let res = await updateData(updatedData, updatedData?.id, "replenishments");
+    console.log("Update response:", res);
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };

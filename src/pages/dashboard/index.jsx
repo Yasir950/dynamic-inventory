@@ -16,6 +16,7 @@ import Header from "layout/Dashboard/Header";
 import Drawer from "layout/Dashboard/Drawer";
 import { FilterIcon } from "assets/images/users/Svg";
 import Example from "pages/vehicles";
+import ApexChart from "./MonthlyBarChart";
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
@@ -348,6 +349,7 @@ export default function DashboardDefault() {
                 />
               </Grid>
             </Grid>
+            <ApexChart />
           </MainCard>
         </Grid>
       </Grid>

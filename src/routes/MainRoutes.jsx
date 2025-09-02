@@ -14,6 +14,7 @@ import ReplenishmentComp from "pages/replenishments";
 import AdjustmentComp from "pages/adjustments";
 import ForecastComp from "pages/forecast";
 import PromotionForecastComp from "pages/promotion";
+import WeeklyComp from "pages/weekly";
 
 const DashboardDefault = Loadable(lazy(() => import("pages/dashboard/index")));
 
@@ -53,8 +54,12 @@ const MainRoutes = {
       element: <SupplierComp />,
     },
     {
-      path: "daily_consumption",
+      path: "consumption/daily",
       element: <ConsumptionComp />,
+    },
+    {
+      path: "consumption/weekly",
+      element: <WeeklyComp />,
     },
     {
       path: "replenishment",

@@ -93,7 +93,11 @@ export default function PromotionForecastComp() {
 
   const handleSave = async (updatedData) => {
     console.log("Parent received updated data:", updatedData);
-    let res = await updateData(updatedData, updatedData?.id, "skus");
+    let res = await updateData(
+      updatedData,
+      updatedData?.id,
+      "promotion-forecasts"
+    );
     console.log("Update response:", res);
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
