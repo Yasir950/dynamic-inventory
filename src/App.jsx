@@ -4,8 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ThemeCustomization from "themes";
 import "./style.css";
 import ScrollTop from "components/ScrollTop";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
 import LoginRoutes from "routes/LoginRoutes";
 import MainRoutes from "routes/MainRoutes";
 // ==============================|| APP - THEME, ROUTER, LOCAL ||============================== //
