@@ -61,7 +61,6 @@ export default function Suppliercomp() {
 
   // Columns mapped to the API object keys. Use `editable: true` where inline editing should be allowed.
   const columnsConfig = [
-    { name: "ID", selectorField: "id", editable: false },
     { name: "Supplier Name", selectorField: "supplier_name" },
     { name: "Contact Info", selectorField: "contact_info" },
     {
@@ -78,12 +77,6 @@ export default function Suppliercomp() {
       name: "Delivery Reliability Score",
       selectorField: "delivery_reliability_score",
       type: "number",
-    },
-    {
-      name: "Created At",
-      selectorField: "created_at",
-      type: "date",
-      editable: false,
     },
   ];
 

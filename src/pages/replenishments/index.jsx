@@ -65,7 +65,6 @@ export default function ReplenishmentComp() {
 
   // Columns mapped to the API object keys. Use `editable: true` where inline editing should be allowed.
   const columnsConfig = [
-    { name: "ID", selectorField: "id", editable: false },
     {
       name: "PO Number",
       selectorField: "purchase_order_number",
@@ -104,12 +103,6 @@ export default function ReplenishmentComp() {
       selectorField: "actual_received_date",
       type: "date",
       editable: true,
-    },
-    {
-      name: "Created At",
-      selectorField: "created_at",
-      type: "date",
-      editable: false,
     },
   ];
 

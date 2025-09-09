@@ -30,6 +30,7 @@ const EditableTable = ({
   edit,
   handleDelete,
   name,
+  rowClick,
 }) => {
   const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null); // { rowId, field }
@@ -337,6 +338,9 @@ const EditableTable = ({
         subHeader
         subHeaderComponent={subHeaderComponentMemo}
         progressComponent={<CustomLoader />}
+        onRowClicked={(row, event) => {
+          rowClick && rowClick(row);
+        }}
       />
     </div>
   );

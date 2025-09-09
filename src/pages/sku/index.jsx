@@ -1,15 +1,18 @@
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import MainCard from "components/MainCard";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData, updateData } from "apiservices";
+import { getData, getGraphData, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import Example from "pages/vehicles";
 import { FilterIcon } from "assets/images/users/Svg";
+import { Box } from "@mui/material";
+import { ExportBtn } from "styled/styled";
+import ApexChart from "../dashboard/MonthlyBarChart";
+import Alert from "misc/dialogue";
 
 // ===============================|| COMPONENT - SKU ||=============================== //
 
@@ -31,15 +34,24 @@ function createData(item) {
     updated_at: item.updated_at,
     supplier_name: item.supplier_name,
     target: item.target,
+    cost: item.cost,
+    location: item.location,
+    quantity: item.quantity,
   };
 }
 
 export default function SKUComp() {
   const [pending, setPending] = useState(true);
-  const [state, setState] = useState({ userData: [] });
+  const [state, setState] = useState({
+    userData: [],
+    showGraph: false,
+    startDate: "2025-09-01",
+    endDate: "2025-09-09",
+    graphData: [],
+    rowData: {},
+  });
 
   const updatedObj = useSelector((state) => state.user.updatedObj);
-
   useEffect(() => {
     getContainersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +81,6 @@ export default function SKUComp() {
 
   // Columns mapped to the API object keys. Use `editable: true` where inline editing should be allowed.
   const columnsConfig = [
-    { name: "ID", selectorField: "id", width: "70px" },
     { name: "SKU", selectorField: "sku" },
     {
       name: "Product Name",
@@ -85,7 +96,20 @@ export default function SKUComp() {
     {
       name: "Default Lead Time",
       selectorField: "default_lead_time",
-
+      type: "number",
+    },
+    {
+      name: "Cost",
+      selectorField: "cost",
+      type: "number",
+    },
+    {
+      name: "Location",
+      selectorField: "location",
+    },
+    {
+      name: "Quantity",
+      selectorField: "quantity",
       type: "number",
     },
     {
@@ -114,17 +138,37 @@ export default function SKUComp() {
       type: "number",
     },
     { name: "Stock Date", selectorField: "stock_date" },
-    { name: "Created At", selectorField: "created_at" },
     { name: "Supplier Name", selectorField: "supplier_name" },
     { name: "Target", selectorField: "target" },
   ];
 
   const handleSave = async (updatedData) => {
-    console.log("Parent received updated data:", updatedData);
     let res = await updateData(updatedData, updatedData?.id, "skus");
     console.log("Update response:", res);
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
+  };
+  const setDate = (dates) => {
+    setState((prev) => ({
+      ...prev,
+      startDate: dates.start,
+      endDate: dates.end,
+    }));
+    handleAddOpen(state.rowData, "dates");
+  };
+  const handleAddOpen = async (row = "", changeDate) => {
+    if (row.id) {
+      let res = await getGraphData(
+        "daily-consumption/inventory-trend/",
+        row.sku,
+        state.startDate,
+        state.endDate
+      );
+      setState((prev) => ({ ...prev, graphData: res, rowData: row }));
+    }
+    if (!changeDate) {
+      setState((prev) => ({ ...prev, showGraph: !prev.showGraph }));
+    }
   };
 
   return (
@@ -154,6 +198,23 @@ export default function SKUComp() {
         columnsConfig={columnsConfig}
         onSave={handleSave}
         loading={pending}
+        rowClick={(row) => handleAddOpen(row)}
+      />
+      <Alert
+        open={state.showGraph}
+        close={handleAddOpen}
+        content={
+          <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
+            <ApexChart data={state.graphData} set={(dates) => setDate(dates)} />
+          </Box>
+        }
+        action={
+          <>
+            <ExportBtn onClick={handleAddOpen} sx={{ width: "120px" }}>
+              cancel
+            </ExportBtn>
+          </>
+        }
       />
     </Grid>
   );

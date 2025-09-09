@@ -34,7 +34,6 @@ function createData(item) {
 }
 export default function ForecastComp() {
   const columnsConfig = [
-    { name: "ID", selectorField: "id", width: "70px" },
     { name: "SKU", selectorField: "sku" },
     { name: "Forcast Name", selectorField: "forcast_name" },
     { name: "Forcast Type", selectorField: "forcast_type" },

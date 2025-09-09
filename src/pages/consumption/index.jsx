@@ -61,7 +61,6 @@ export default function ConsumptionComp() {
 
   // Columns mapped to the API object keys. Use `editable: true` where inline editing should be allowed.
   const columnsConfig = [
-    { name: "ID", selectorField: "id", editable: false },
     { name: "SKU", selectorField: "sku", editable: true },
     { name: "Location", selectorField: "location", editable: true },
     {
@@ -81,12 +80,6 @@ export default function ConsumptionComp() {
       selectorField: "order_date",
       type: "date",
       editable: true,
-    },
-    {
-      name: "Created At",
-      selectorField: "created_at",
-      type: "date",
-      editable: false,
     },
   ];
 

@@ -35,7 +35,6 @@ function createData(item) {
 }
 
 const columnsConfig = [
-  { name: "ID", selectorField: "id", width: "70px" },
   { name: "SKU", selectorField: "sku" },
   {
     name: "Forecasted Demand",
