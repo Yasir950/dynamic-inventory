@@ -66,7 +66,7 @@ const StackedWithLine = ({ data, set }) => {
     yaxis: [
       {
         show: true,
-        labels: { show: false }, // hide left values
+        // labels: { show: false }, // hide left values
       },
       {
         seriesName: "On Hand",
