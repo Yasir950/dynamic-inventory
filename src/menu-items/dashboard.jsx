@@ -135,14 +135,14 @@ const AdminDashboard = {
       icon: icons.FieldTimeOutlined,
       breadcrumbs: false,
     },
-    // {
-    //   id: "promotion_forecast",
-    //   title: "Promotion Forecast",
-    //   type: "item",
-    //   url: "/promotion_forecast",
-    //   icon: icons.CodeSandboxOutlined,
-    //   breadcrumbs: false,
-    // },
+    {
+      id: "shortfall_report",
+      title: "Shortfall Report",
+      type: "item",
+      url: "/shortfall_report",
+      icon: icons.CodeSandboxOutlined,
+      breadcrumbs: false,
+    },
   ],
 };
 

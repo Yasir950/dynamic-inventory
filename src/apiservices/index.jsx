@@ -1109,3 +1109,24 @@ export const getGraphData = async (url, sku, start, end) => {
   let json = res.data;
   return json;
 };
+// export const getReportData = async (url, start, end) => {
+//   const token = localStorage.getItem("token");
+//   const myHeaders = new Headers();
+//   myHeaders.append("Authorization", "Bearer " + token);
+//   const raw = "";
+
+//   const requestOptions = {
+//     method: "GET",
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: "follow",
+//     Accept: "application/json",
+//     "Content-Type": "application/json",
+//   };
+//   let res = await axios.get(
+//     `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
+//     requestOptions
+//   );
+//   let json = res.data;
+//   return json;
+// };

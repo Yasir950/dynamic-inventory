@@ -15,6 +15,7 @@ import AdjustmentComp from "pages/adjustments";
 import ForecastComp from "pages/forecast";
 import PromotionForecastComp from "pages/promotion";
 import WeeklyComp from "pages/weekly";
+import ShortfallComp from "pages/shortfall";
 
 const DashboardDefault = Loadable(lazy(() => import("pages/dashboard/index")));
 
@@ -76,6 +77,10 @@ const MainRoutes = {
     {
       path: "promotion_forecast",
       element: <PromotionForecastComp />,
+    },
+    {
+      path: "shortfall_report",
+      element: <ShortfallComp />,
     },
     { path: "*", element: <Navigate to="/dashboard" /> },
   ],
