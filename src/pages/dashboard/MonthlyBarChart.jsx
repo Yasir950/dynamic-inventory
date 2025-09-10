@@ -18,7 +18,7 @@ const StackedWithLine = ({ data, set }) => {
   // Dates & on-hand values
   const dates = trend.map((t) => t.date);
   const onHand = trend.map((t) => t.on_hand);
-  const maxY = Math.max(...onHand, target) + 10; // +10 for spacing
+  const maxY = Math.max(...onHand, target); // +10 for spacing
 
   // recalc green so that stacked bars always reach maxY
   const greenDynamic = maxY - (redZone + yellowZone);
@@ -64,10 +64,10 @@ const StackedWithLine = ({ data, set }) => {
       categories: dates,
     },
     yaxis: [
-      {
-        show: true,
-        // labels: { show: false }, // hide left values
-      },
+      // {
+      //   show: true,
+      //   labels: { show: false }, // hide left values
+      // },
       {
         seriesName: "On Hand",
         opposite: true,
