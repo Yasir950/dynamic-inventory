@@ -20,7 +20,7 @@ import { getReportData } from "../../apiservices";
 function createData(item) {
   return {
     sku: item.sku,
-    description: item.description,
+    // description: item.description,
     target: item.target,
     onhand: item.onhand,
     replenishment: item.replenishment,
@@ -76,7 +76,7 @@ export default function ShortfallComp() {
   // Columns mapped to the API object keys. Use `editable: true` where inline editing should be allowed.
   const columnsConfig = [
     { name: "SKU", selectorField: "sku" },
-    { name: "Description", selectorField: "description" },
+    // { name: "Description", selectorField: "description" },
     {
       name: "Target",
       selectorField: "target",
