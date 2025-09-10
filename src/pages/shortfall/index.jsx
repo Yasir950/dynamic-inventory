@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData, getGraphData, updateData } from "apiservices";
+import { getData, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import Example from "pages/vehicles";
@@ -13,6 +13,7 @@ import { Box } from "@mui/material";
 import { ExportBtn } from "styled/styled";
 import ApexChart from "../dashboard/MonthlyBarChart";
 import Alert from "misc/dialogue";
+import { getReportData } from "../../apiservices";
 
 // ===============================|| COMPONENT - SKU ||=============================== //
 
@@ -49,7 +50,11 @@ export default function ShortfallComp() {
   const getContainersData = async () => {
     try {
       setPending(true);
-      const res = await getData("sku-shortfall-report"); // assumed to return array of the objects you posted
+      const res = await getReportData(
+        "sku-shortfall-report",
+        "2025 - 09 - 01",
+        "2025 - 09 - 09"
+      ); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
