@@ -38,7 +38,7 @@ const StackedWithLine = ({ data, set }) => {
     {
       name: "Green Zone",
       type: "bar",
-      data: trend.map(() => greenDynamic),
+      data: trend.map(() => greenZone),
     },
     {
       name: "On Hand",
@@ -85,8 +85,8 @@ const StackedWithLine = ({ data, set }) => {
   };
   const handleApply = ({ start, end }) => {
     set({
-      start: start.format("YYYY-MM-DD"),
-      end: end.format("YYYY-MM-DD"),
+      start: start,
+      end: end,
     });
   };
   return (
@@ -100,7 +100,7 @@ const StackedWithLine = ({ data, set }) => {
         }}
       >
         <FilterIcon />
-        <Example apply={handleApply} />
+        <Example onApply={(data) => handleApply(data)} />
       </div>
       <ReactApexChart
         options={options}

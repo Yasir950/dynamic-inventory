@@ -147,7 +147,7 @@ export default function PromotionForecastComp() {
             }}
           >
             <FilterIcon />
-            <Example />
+            <Example onApply={(data) => applyDates(data)} />
           </div>
         </Stack>
       </Stack>

@@ -962,7 +962,7 @@ export const updateRatesData = async (userData, id) => {
     toast.error(error.response?.data?.email?.[0] || "Something went wrong");
   }
 };
-export const getData = async (url) => {
+export const getData = async (url, start = "", end = "") => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + token);
@@ -977,10 +977,11 @@ export const getData = async (url) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}/`,
+    `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
     requestOptions
   );
   let json = res.data;
+  console.log(res.data);
   return json;
 };
 export const updateData = async (userData, id, url) => {

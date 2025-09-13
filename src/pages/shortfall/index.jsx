@@ -4,17 +4,16 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData, updateData } from "apiservices";
+import { updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import Example from "pages/vehicles";
 import { FilterIcon } from "assets/images/users/Svg";
-import { Box } from "@mui/material";
-import { ExportBtn } from "styled/styled";
-import ApexChart from "../dashboard/MonthlyBarChart";
-import Alert from "misc/dialogue";
 import { getReportData } from "../../apiservices";
+import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
 
+dayjs.extend(isoWeek);
 // ===============================|| COMPONENT - SKU ||=============================== //
 
 function createData(item) {
@@ -47,13 +46,13 @@ export default function ShortfallComp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
-  const getContainersData = async () => {
+  const getContainersData = async (start, end) => {
     try {
       setPending(true);
       const res = await getReportData(
         "sku-shortfall-report",
-        "2025 - 09 - 01",
-        "2025 - 09 - 09"
+        start ? start : dayjs().format("YYYY-MM-DD"),
+        end ? end : dayjs().format("YYYY-MM-DD")
       ); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
@@ -115,7 +114,9 @@ export default function ShortfallComp() {
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
-
+  const applyDates = ({ start, end }) => {
+    getContainersData(start, end);
+  };
   return (
     <Grid item xs={12} md={12} lg={12}>
       <Stack justifyContent={"space-between"} flexDirection={"row"}>
@@ -134,7 +135,7 @@ export default function ShortfallComp() {
           }}
         >
           <FilterIcon />
-          <Example />
+          <Example onApply={(data) => applyDates(data)} short={true} />
         </div>
       </Stack>
 

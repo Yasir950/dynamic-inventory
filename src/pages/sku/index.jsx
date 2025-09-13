@@ -57,10 +57,11 @@ export default function SKUComp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
-  const getContainersData = async () => {
+  const getContainersData = async (start = "", end = "") => {
     try {
       setPending(true);
-      const res = await getData("skus"); // assumed to return array of the objects you posted
+      const res = await getData("skus", start, end); // assumed to return array of the objects you posted
+
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
@@ -69,7 +70,6 @@ export default function SKUComp() {
       }
 
       const rowsData = res.map((item) => createData(item));
-
       setState((prev) => ({ ...prev, userData: rowsData }));
     } catch (err) {
       console.error("Failed to fetch SKUs:", err);
@@ -167,10 +167,17 @@ export default function SKUComp() {
       setState((prev) => ({ ...prev, graphData: res, rowData: row }));
     }
     if (!changeDate) {
-      setState((prev) => ({ ...prev, showGraph: !prev.showGraph }));
+      setState((prev) => ({
+        ...prev,
+        showGraph: !prev.showGraph,
+        startDate: "",
+        endDate: "",
+      }));
     }
   };
-
+  const applyDates = ({ start, end }) => {
+    getContainersData(start, end);
+  };
   return (
     <Grid item xs={12} md={12} lg={12}>
       <Stack justifyContent={"space-between"} flexDirection={"row"}>
@@ -189,7 +196,7 @@ export default function SKUComp() {
           }}
         >
           <FilterIcon />
-          <Example />
+          <Example onApply={(data) => applyDates(data)} />
         </div>
       </Stack>
 

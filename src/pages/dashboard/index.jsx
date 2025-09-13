@@ -51,7 +51,7 @@ export default function DashboardDefault() {
           }}
         >
           <FilterIcon />
-          <Example />
+          <Example onApply={(data) => applyDates(data)} />
         </div>
         {/* <DateRangedComp/> */}
       </Stack>

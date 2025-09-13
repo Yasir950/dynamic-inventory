@@ -39,10 +39,10 @@ export default function ReplenishmentComp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
-  const getContainersData = async () => {
+  const getContainersData = async (start = "", end = "") => {
     try {
       setPending(true);
-      const res = await getData("adjustments"); // assumed to return array of the objects you posted
+      const res = await getData("adjustments", start, end); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
@@ -93,7 +93,9 @@ export default function ReplenishmentComp() {
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
-
+  const applyDates = ({ start, end }) => {
+    getContainersData(start, end);
+  };
   return (
     <Grid item xs={12} md={12} lg={12}>
       <Stack justifyContent={"space-between"} flexDirection={"row"}>
@@ -112,7 +114,7 @@ export default function ReplenishmentComp() {
           }}
         >
           <FilterIcon />
-          <Example />
+          <Example onApply={(data) => applyDates(data)} />
         </div>
       </Stack>
 
