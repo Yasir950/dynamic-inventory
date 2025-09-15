@@ -15,7 +15,10 @@ import ApexChart from "../dashboard/MonthlyBarChart";
 import Alert from "misc/dialogue";
 
 // ===============================|| COMPONENT - SKU ||=============================== //
+import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
 
+dayjs.extend(isoWeek);
 function createData(item) {
   // Map API object -> table row object
   return {
@@ -148,25 +151,19 @@ export default function SKUComp() {
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
-  const setDate = (dates) => {
-    setState((prev) => ({
-      ...prev,
-      startDate: dates.start,
-      endDate: dates.end,
-    }));
-    handleAddOpen(state.rowData, "dates");
-  };
-  const handleAddOpen = async (row = "", changeDate) => {
+
+  const handleAddOpen = async (row = "", dates) => {
+    console.log(dates);
     if (row.id) {
       let res = await getGraphData(
         "daily-consumption/inventory-trend/",
         row.sku,
-        state.startDate,
-        state.endDate
+        dates?.start || dayjs().subtract(1, "week").format("YYYY-MM-DD"),
+        dates?.end || dayjs().format("YYYY-MM-DD")
       );
       setState((prev) => ({ ...prev, graphData: res, rowData: row }));
     }
-    if (!changeDate) {
+    if (!dates) {
       setState((prev) => ({
         ...prev,
         showGraph: !prev.showGraph,
@@ -212,7 +209,10 @@ export default function SKUComp() {
         close={handleAddOpen}
         content={
           <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
-            <ApexChart data={state.graphData} set={(dates) => setDate(dates)} />
+            <ApexChart
+              data={state.graphData}
+              set={(dates) => handleAddOpen(state.rowData, dates)}
+            />
           </Box>
         }
         action={

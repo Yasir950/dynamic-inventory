@@ -19,7 +19,7 @@ const quickOptions = [
   { label: "This Month", value: "month" },
 ];
 
-const DateRangeDropdown = ({ onApply, short }) => {
+const DateRangeDropdown = ({ onApply, short, graph }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [start, setStart] = useState(dayjs().format("YYYY-MM-DD"));
   const [end, setEnd] = useState(dayjs().format("YYYY-MM-DD"));
@@ -36,6 +36,13 @@ const DateRangeDropdown = ({ onApply, short }) => {
     if (short) {
       setDisplayValue(
         `${dayjs().format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
+      );
+    }
+    if (graph) {
+      setStart(dayjs().subtract(1, "week").format("YYYY-MM-DD"));
+      setEnd(dayjs().format("YYYY-MM-DD"));
+      setDisplayValue(
+        `${dayjs().subtract(1, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
       );
     }
     return () => {};

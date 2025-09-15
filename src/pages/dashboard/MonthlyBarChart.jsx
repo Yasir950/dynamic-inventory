@@ -100,7 +100,7 @@ const StackedWithLine = ({ data, set }) => {
         }}
       >
         <FilterIcon />
-        <Example onApply={(data) => handleApply(data)} />
+        <Example onApply={(data) => handleApply(data)} graph="graph" />
       </div>
       <ReactApexChart
         options={options}
