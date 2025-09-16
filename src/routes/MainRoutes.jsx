@@ -75,7 +75,7 @@ const MainRoutes = {
       element: <ForecastComp />,
     },
     {
-      path: "promotion_forecast",
+      path: "target_forecast",
       element: <PromotionForecastComp />,
     },
     {

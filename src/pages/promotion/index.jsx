@@ -1,27 +1,24 @@
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import MainCard from "components/MainCard";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import {
-  getData,
-  saveForecast,
-  savePromotionForecast,
-  updateData,
-} from "apiservices";
+import { getData, savePromotionForecast, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useDispatch, useSelector } from "react-redux";
 import Example from "pages/vehicles";
 import { FilterIcon } from "assets/images/users/Svg";
-import { AddBtn, ExportBtn, MyBtn } from "styled/styled";
+import { ExportBtn, MyBtn } from "styled/styled";
 import { changeForm, clearData } from "redux/slices/userSlice";
 import { Box, FormHelperText, InputLabel, TextField } from "@mui/material";
 import Alert from "misc/dialogue";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
 
+dayjs.extend(isoWeek);
 // ===============================|| COMPONENT - SKU ||=============================== //
 
 function createData(item) {
@@ -59,14 +56,21 @@ export default function PromotionForecastComp() {
   const updatedObj = useSelector((state) => state.user.updatedObj);
   const isAddForm = useSelector((state) => state.user.isAddForm);
   useEffect(() => {
-    getContainersData();
+    getContainersData(
+      dayjs().subtract(6, "week").format("YYYY-MM-DD"),
+      dayjs().format("YYYY-MM-DD")
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
-  const getContainersData = async () => {
+  const getContainersData = async (start = "", end = "") => {
     try {
       setPending(true);
-      const res = await getData("promotion-forecasts"); // assumed to return array of the objects you posted
+      const res = await getData(
+        "daily-consumption/replenishment-forecast",
+        start,
+        end
+      ); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
@@ -102,30 +106,15 @@ export default function PromotionForecastComp() {
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
   const onSubmit = async (data) => {
-    console.log("Form Data Submitted:", data);
     let res = await savePromotionForecast(data);
     if (res) {
       toast.success("Promotion Forecast saved successfully");
       getContainersData();
       handleAddOpen();
     }
-    // if (updatedObj) {
-    //   let userData = { ...data, id:updatedObj.id };
-    //   let res = await updateContainers(userData, updatedObj?.id);
-    //   if (res?.id) {
-    //     toast.success("Container updated successfully");
-    //     getContainersData();
-    //     handleAddOpen();
-    //   }
-    // } else {
-    //   let userData = { ...data};
-    //   let res = await saveContainers(userData);
-    //   if (res) {
-    //     toast.success("Container saved successfully");
-    //     getContainersData();
-    //     handleAddOpen();
-    //   }
-    // }
+  };
+  const applyDates = ({ start, end }) => {
+    getContainersData(start, end);
   };
   return (
     <Grid item xs={12} md={12} lg={12}>
@@ -133,11 +122,11 @@ export default function PromotionForecastComp() {
         <Typography
           sx={{ fontWeight: 300, fontSize: "30px", color: "#09090B" }}
         >
-          Promotion Forecast
-          <Breadcrumbs title="Promotion-Forecast" />
+          Target Forecast
+          <Breadcrumbs title="Target-Forecast" />
         </Typography>
         <Stack direction={"row"} spacing={2} alignItems={"center"}>
-          <AddBtn onClick={handleAddOpen}>Add Promotion Forecast</AddBtn>
+          {/* <AddBtn onClick={handleAddOpen}>Add Promotion Forecast</AddBtn> */}
           <div
             style={{
               width: "328px",
@@ -147,7 +136,7 @@ export default function PromotionForecastComp() {
             }}
           >
             <FilterIcon />
-            <Example onApply={(data) => applyDates(data)} />
+            <Example onApply={(data) => applyDates(data)} target={"target"} />
           </div>
         </Stack>
       </Stack>

@@ -153,13 +153,13 @@ export default function SKUComp() {
   };
 
   const handleAddOpen = async (row = "", dates) => {
-    console.log(dates);
     if (row.id) {
       let res = await getGraphData(
         "daily-consumption/inventory-trend/",
         row.sku,
         dates?.start || dayjs().subtract(1, "week").format("YYYY-MM-DD"),
-        dates?.end || dayjs().format("YYYY-MM-DD")
+        dates?.end || dayjs().format("YYYY-MM-DD"),
+        dates?.bucket || "daily"
       );
       setState((prev) => ({ ...prev, graphData: res, rowData: row }));
     }
@@ -172,8 +172,8 @@ export default function SKUComp() {
       }));
     }
   };
-  const applyDates = ({ start, end }) => {
-    getContainersData(start, end);
+  const applyDates = ({ start, end, bucket }) => {
+    getContainersData(start, end, bucket);
   };
   return (
     <Grid item xs={12} md={12} lg={12}>

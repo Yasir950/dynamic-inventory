@@ -19,13 +19,13 @@ const quickOptions = [
   { label: "This Month", value: "month" },
 ];
 
-const DateRangeDropdown = ({ onApply, short, graph }) => {
+const DateRangeDropdown = ({ onApply, short, graph, target }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [start, setStart] = useState(dayjs().format("YYYY-MM-DD"));
   const [end, setEnd] = useState(dayjs().format("YYYY-MM-DD"));
   const [displayValue, setDisplayValue] = useState("Select Date");
   const [selectedQuick, setSelectedQuick] = useState(null);
-
+  const [bucket, setBucket] = useState("daily");
   const open = Boolean(anchorEl);
 
   // Open card
@@ -43,6 +43,13 @@ const DateRangeDropdown = ({ onApply, short, graph }) => {
       setEnd(dayjs().format("YYYY-MM-DD"));
       setDisplayValue(
         `${dayjs().subtract(1, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
+      );
+    }
+    if (target) {
+      setStart(dayjs().subtract(6, "week").format("YYYY-MM-DD"));
+      setEnd(dayjs().format("YYYY-MM-DD"));
+      setDisplayValue(
+        `${dayjs().subtract(6, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
       );
     }
     return () => {};
@@ -82,7 +89,15 @@ const DateRangeDropdown = ({ onApply, short, graph }) => {
     const e = dayjs(end);
     const rangeText = `${s.format("YYYY-MM-DD")} - ${e.format("YYYY-MM-DD")}`;
     setDisplayValue(rangeText);
-    onApply?.({ start: s.format("YYYY-MM-DD"), end: e.format("YYYY-MM-DD") });
+    if (graph) {
+      onApply?.({
+        start: s.format("YYYY-MM-DD"),
+        end: e.format("YYYY-MM-DD"),
+        bucket: bucket,
+      });
+    } else {
+      onApply?.({ start: s.format("YYYY-MM-DD"), end: e.format("YYYY-MM-DD") });
+    }
     handleClose();
   };
 
@@ -119,6 +134,24 @@ const DateRangeDropdown = ({ onApply, short, graph }) => {
       >
         <Card sx={{ p: 2, borderRadius: 3, minWidth: 380 }}>
           <CardContent>
+            {graph && (
+              <select
+                style={{
+                  backgroundColor: "#FFF",
+                  color: "#FF8900",
+                  border: "1px solid #FF8900",
+                  borderRadius: 4,
+                  padding: "10px 12px",
+                  width: "80%",
+                  marginBottom: 16,
+                }}
+                value={bucket}
+                onChange={(e) => setBucket(e.target.value)}
+              >
+                <option value={"daily"}>Daily</option>
+                <option value={"weekly"}>Weekly</option>
+              </select>
+            )}
             <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
               {quickOptions.map((opt) => (
                 <Button

@@ -1089,7 +1089,7 @@ export const getWeeklyData = async (url, num) => {
   let json = res.data;
   return json;
 };
-export const getGraphData = async (url, sku, start, end) => {
+export const getGraphData = async (url, sku, start, end, bucket) => {
   const token = localStorage.getItem("token");
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + token);
@@ -1104,7 +1104,7 @@ export const getGraphData = async (url, sku, start, end) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}?sku=${sku}&start_date=${start}&end_date=${end}`,
+    `https://inventory.nikahgo.com/api/${url}?sku=${sku}&start_date=${start}&end_date=${end}&bucket=${bucket}`,
     requestOptions
   );
   let json = res.data;

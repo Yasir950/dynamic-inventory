@@ -10,6 +10,7 @@ import {
   LineChartOutlined,
   FieldTimeOutlined,
   AccountBookOutlined,
+  AimOutlined,
 } from "@ant-design/icons";
 import { DotIcon } from "assets/images/users/Svg";
 // icons
@@ -25,6 +26,7 @@ const icons = {
   AccountBookOutlined,
   TruckOutlined,
   DotIcon,
+  AimOutlined,
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -133,6 +135,14 @@ const AdminDashboard = {
       type: "item",
       url: "/forecast",
       icon: icons.FieldTimeOutlined,
+      breadcrumbs: false,
+    },
+    {
+      id: "target-forecast",
+      title: "Target Forecast",
+      type: "item",
+      url: "/target_forecast",
+      icon: icons.AimOutlined,
       breadcrumbs: false,
     },
     {

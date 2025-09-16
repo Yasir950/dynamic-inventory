@@ -1,3 +1,4 @@
+import { FormControl, Grid } from "@mui/material";
 import { FilterIcon } from "assets/images/users/Svg";
 import Example from "pages/vehicles";
 import React from "react";
@@ -83,10 +84,11 @@ const StackedWithLine = ({ data, set }) => {
       position: "top",
     },
   };
-  const handleApply = ({ start, end }) => {
+  const handleApply = ({ start, end, bucket }) => {
     set({
       start: start,
       end: end,
+      bucket: bucket,
     });
   };
   return (
