@@ -23,24 +23,56 @@ dayjs.extend(isoWeek);
 
 function createData(item) {
   return {
-    id: item.id,
     sku: item.sku,
-    forecasted_demand: item.forecasted_demand,
-    start_date: item.start_date,
-    end_date: item.end_date,
+    current_target: item.current_target,
+    current_stock: item.current_stock,
+    avg_daily_consumption: item.avg_daily_consumption,
+    total_consumed: item.total_consumed,
+    total_received: item.total_received,
+    total_ordered: item.total_ordered,
+    current_zone: item.current_zone,
+    recommended_target: item.recommended_target,
   };
 }
 
 const columnsConfig = [
   { name: "SKU", selectorField: "sku" },
   {
-    name: "Forecasted Demand",
-    selectorField: "forecasted_demand",
-    editable: true,
+    name: "Current Target",
+    selectorField: "current_target",
     type: "number",
   },
-  { name: "Start Date", selectorField: "start_date" },
-  { name: "End Date", selectorField: "end_date" },
+  {
+    name: "Current Stock",
+    selectorField: "current_stock",
+    type: "number",
+  },
+  {
+    name: "Avg Daily Consumption",
+    selectorField: "avg_daily_consumption",
+    type: "number",
+  },
+  {
+    name: "Total Consumed",
+    selectorField: "total_consumed",
+    type: "number",
+  },
+  {
+    name: "Total Received",
+    selectorField: "total_received",
+    type: "number",
+  },
+  {
+    name: "Total Ordered",
+    selectorField: "total_ordered",
+    type: "number",
+  },
+  { name: "Current Zone", selectorField: "current_zone" },
+  {
+    name: "Recommended Target",
+    selectorField: "recommended_target",
+    type: "number",
+  },
 ];
 
 export default function PromotionForecastComp() {
@@ -56,21 +88,14 @@ export default function PromotionForecastComp() {
   const updatedObj = useSelector((state) => state.user.updatedObj);
   const isAddForm = useSelector((state) => state.user.isAddForm);
   useEffect(() => {
-    getContainersData(
-      dayjs().subtract(6, "week").format("YYYY-MM-DD"),
-      dayjs().format("YYYY-MM-DD")
-    );
+    getContainersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedObj]);
 
-  const getContainersData = async (start = "", end = "") => {
+  const getContainersData = async () => {
     try {
       setPending(true);
-      const res = await getData(
-        "daily-consumption/replenishment-forecast",
-        start,
-        end
-      ); // assumed to return array of the objects you posted
+      const res = await getData("inventory-target"); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
@@ -135,8 +160,8 @@ export default function PromotionForecastComp() {
               justifyContent: "space-between",
             }}
           >
-            <FilterIcon />
-            <Example onApply={(data) => applyDates(data)} target={"target"} />
+            {/* <FilterIcon /> */}
+            {/* <Example onApply={(data) => applyDates(data)} target={"target"} /> */}
           </div>
         </Stack>
       </Stack>
