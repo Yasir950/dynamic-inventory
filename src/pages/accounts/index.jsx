@@ -23,19 +23,19 @@ import { toast } from "react-toastify";
 // ===============================|| COMPONENT - COLOR ||=============================== //
 
 export default function AccountsComp() {
-   const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [language, setLanguage] = React.useState("");
   const languages = ["All Regions", "English", "Urdu", "French"];
 
-  const handlePassChange = async (data)=>{
-    console.log(data)
+  const handlePassChange = async (data) => {
+    console.log(data);
     let res = await changePassword(data);
-    toast.success(res.detail)
-  }
+    toast.success(res.detail);
+  };
   return (
     <>
       <Grid item xs={12} md={12} lg={12}>
@@ -94,87 +94,103 @@ export default function AccountsComp() {
               </Grid>
             </AccordionDetails>
           </Accordion> */}
-                <Typography sx={{fontSize:'20px', fontWeight:'700'}}>Change Password</Typography>
-        
-              <Grid container rowGap={4} sx={{padding:4}} columnGap={5}>
-                <Grid item xs={12} sm={6} md={6} lg={4}>
-                  <InputLabel>Current Password</InputLabel>
-                  <TextField
-                  {...register("current_password", { required: true })}
-                    type="password"
-                    fullWidth
-                  ></TextField>
-          {errors.email && <span style={{fontSize:"10px", color:"red"}}>*This field is required</span>}
-                </Grid>
-                <Grid container columnGap={4}>
-                  <Grid item xs={12} sm={6} md={6} lg={4}>
-                    <InputLabel>New Password</InputLabel>
-                    <TextField
-                      type="password"
-                  {...register("new_password", { required: true })}
-                      fullWidth
-                    ></TextField>
-          {errors.email && <span style={{fontSize:"10px", color:"red"}}>*This field is required</span>}
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={4}>
-                    <InputLabel>Confirm New Password</InputLabel>
-                    <TextField
-                      type="password"
-                  {...register("repeat_password", { required: true })}
-                      fullWidth
-                    ></TextField>
-          {errors.email && <span style={{fontSize:"10px", color:"red"}}>*This field is required</span>}
+          <Typography sx={{ fontSize: "20px", fontWeight: "700" }}>
+            Change Password
+          </Typography>
 
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={4} rowGap={2}>
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: 500,
-                      color: "#4B465C",
-                      mb: 2,
-                    }}
-                  >
-                    {" "}
-                    Password Requirement
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: 400,
-                      color: "#4B465C",
-                      mb: 1,
-                    }}
-                  >
-                    • Minimum 8 characters long - the more, the better
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: 400,
-                      color: "#4B465C",
-                      mb: 1,
-                    }}
-                  >
-                    • At least one lowercase character
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: 400,
-                      color: "#4B465C",
-                      mb: 1,
-                    }}
-                  >
-                    • At least one number, symbol, or whitespace character
-                  </Typography>
-                  <MyBtn sx={{ mt: 3, minWidth: { md: "300px", xs: "200px" } }} onClick={handleSubmit(handlePassChange)}>
-                    save
-                  </MyBtn>
-                </Grid>
+          <Grid container rowGap={4} sx={{ padding: 4 }} columnGap={5}>
+            <Grid item xs={12} sm={6} md={6} lg={4}>
+              <InputLabel>Current Password</InputLabel>
+              <TextField
+                {...register("current_password", { required: true })}
+                type="password"
+                fullWidth
+              ></TextField>
+              {errors.email && (
+                <span style={{ fontSize: "10px", color: "red" }}>
+                  *This field is required
+                </span>
+              )}
+            </Grid>
+            <Grid container columnGap={4}>
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <InputLabel>New Password</InputLabel>
+                <TextField
+                  type="password"
+                  {...register("new_password", { required: true })}
+                  fullWidth
+                ></TextField>
+                {errors.email && (
+                  <span style={{ fontSize: "10px", color: "red" }}>
+                    *This field is required
+                  </span>
+                )}
               </Grid>
-           
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <InputLabel>Confirm New Password</InputLabel>
+                <TextField
+                  type="password"
+                  {...register("repeat_password", { required: true })}
+                  fullWidth
+                ></TextField>
+                {errors.email && (
+                  <span style={{ fontSize: "10px", color: "red" }}>
+                    *This field is required
+                  </span>
+                )}
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} lg={4} rowGap={2}>
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: 500,
+                  color: "#4B465C",
+                  mb: 2,
+                }}
+              >
+                {" "}
+                Password Requirement
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: 400,
+                  color: "#4B465C",
+                  mb: 1,
+                }}
+              >
+                • Minimum 8 characters long - the more, the better
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: 400,
+                  color: "#4B465C",
+                  mb: 1,
+                }}
+              >
+                • At least one lowercase character
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: 400,
+                  color: "#4B465C",
+                  mb: 1,
+                }}
+              >
+                • At least one number, symbol, or whitespace character
+              </Typography>
+              <MyBtn
+                sx={{ mt: 3, minWidth: { md: "300px", xs: "200px" } }}
+                onClick={handleSubmit(handlePassChange)}
+              >
+                save
+              </MyBtn>
+            </Grid>
+          </Grid>
+
           {/* <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

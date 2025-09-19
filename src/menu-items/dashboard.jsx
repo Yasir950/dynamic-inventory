@@ -30,47 +30,19 @@ const icons = {
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
-let user = JSON?.parse(localStorage.getItem("user"));
-console.log(user);
 const AdminDashboard = {
   id: "group-dashboard",
   type: "group",
   children: [
-    {
-      id: "dashboard",
-      title: "Dashboard",
-      type: "item",
-      url: "/dashboard",
-      icon: icons.DashboardOutlined,
-      breadcrumbs: true,
-    },
+    // {
+    //   id: "dashboard",
+    //   title: "Dashboard",
+    //   type: "item",
+    //   url: "/dashboard",
+    //   icon: icons.DashboardOutlined,
+    //   breadcrumbs: true,
+    // },
 
-    {
-      id: "users",
-      title: "Users",
-      type: "collapse",
-      url: "/users",
-      icon: icons.UsergroupAddOutlined,
-      breadcrumbs: true,
-      children: [
-        {
-          id: "add-user",
-          title: "Manage Users",
-          type: "item",
-          url: "/users",
-          icon: icons.DotIcon,
-          breadcrumbs: false,
-        },
-        // {
-        //   id: "roles",
-        //   title: "Manage Roles",
-        //   type: "item",
-        //   url: "/users/roles",
-        //   icon: icons.DotIcon,
-        //   breadcrumbs: false,
-        // },
-      ],
-    },
     {
       id: "sku",
       title: "SKU",
@@ -152,6 +124,32 @@ const AdminDashboard = {
       url: "/shortfall_report",
       icon: icons.CodeSandboxOutlined,
       breadcrumbs: false,
+    },
+    {
+      id: "users",
+      title: "Users",
+      type: "collapse",
+      url: "/users",
+      icon: icons.UsergroupAddOutlined,
+      breadcrumbs: true,
+      children: [
+        {
+          id: "add-user",
+          title: "Manage Users",
+          type: "item",
+          url: "/users",
+          icon: icons.DotIcon,
+          breadcrumbs: false,
+        },
+        // {
+        //   id: "roles",
+        //   title: "Manage Roles",
+        //   type: "item",
+        //   url: "/users/roles",
+        //   icon: icons.DotIcon,
+        //   breadcrumbs: false,
+        // },
+      ],
     },
   ],
 };

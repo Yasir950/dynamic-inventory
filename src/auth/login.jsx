@@ -116,7 +116,7 @@ function LoginComponent() {
         [1000]
       );
 
-      window.location.href = "/dashboard";
+      window.location.href = "/sku";
       toast.success("Login successfully");
     } else {
       toast.error("Wrong Credentials. Please try again");

@@ -18,7 +18,7 @@ export default function Search() {
     setValue(e.target.value);
   };
   const handleSearch = () => {
-    navigate(`/track`, { state: value });
+    // navigate(`/track`, { state: value });
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
