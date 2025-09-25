@@ -133,7 +133,7 @@ export default function ShortfallComp() {
       let res = await getGraphData(
         "daily-consumption/inventory-trend/",
         row.sku,
-        dates?.start || dayjs().subtract(16, "week").format("YYYY-MM-DD"),
+        dates?.start || dayjs().subtract(15, "week").format("YYYY-MM-DD"),
         dates?.end || dayjs().format("YYYY-MM-DD"),
         dates?.bucket || "weekly"
       );

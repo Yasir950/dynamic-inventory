@@ -39,10 +39,10 @@ const DateRangeDropdown = ({ onApply, short, graph, target }) => {
       );
     }
     if (graph) {
-      setStart(dayjs().subtract(16, "week").format("YYYY-MM-DD"));
+      setStart(dayjs().subtract(15, "week").format("YYYY-MM-DD"));
       setEnd(dayjs().format("YYYY-MM-DD"));
       setDisplayValue(
-        `${dayjs().subtract(16, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
+        `${dayjs().subtract(15, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
       );
     }
     if (target) {
