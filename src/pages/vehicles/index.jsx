@@ -25,7 +25,7 @@ const DateRangeDropdown = ({ onApply, short, graph, target }) => {
   const [end, setEnd] = useState(dayjs().format("YYYY-MM-DD"));
   const [displayValue, setDisplayValue] = useState("Select Date");
   const [selectedQuick, setSelectedQuick] = useState(null);
-  const [bucket, setBucket] = useState("daily");
+  const [bucket, setBucket] = useState("weekly");
   const open = Boolean(anchorEl);
 
   // Open card
@@ -39,10 +39,10 @@ const DateRangeDropdown = ({ onApply, short, graph, target }) => {
       );
     }
     if (graph) {
-      setStart(dayjs().subtract(1, "week").format("YYYY-MM-DD"));
+      setStart(dayjs().subtract(16, "week").format("YYYY-MM-DD"));
       setEnd(dayjs().format("YYYY-MM-DD"));
       setDisplayValue(
-        `${dayjs().subtract(1, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
+        `${dayjs().subtract(16, "week").format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
       );
     }
     if (target) {
@@ -148,8 +148,8 @@ const DateRangeDropdown = ({ onApply, short, graph, target }) => {
                 value={bucket}
                 onChange={(e) => setBucket(e.target.value)}
               >
-                <option value={"daily"}>Daily</option>
                 <option value={"weekly"}>Weekly</option>
+                <option value={"daily"}>Daily</option>
               </select>
             )}
             <Stack direction="row" spacing={1} sx={{ mb: 2 }}>

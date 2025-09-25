@@ -17,6 +17,7 @@ import Alert from "misc/dialogue";
 // ===============================|| COMPONENT - SKU ||=============================== //
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
+import { toast } from "react-toastify";
 
 dayjs.extend(isoWeek);
 function createData(item) {
@@ -40,6 +41,8 @@ function createData(item) {
     cost: item.cost,
     location: item.location,
     quantity: item.quantity,
+    case: item.case,
+    discontinued: item.discontinued,
   };
 }
 
@@ -99,6 +102,18 @@ export default function SKUComp() {
     {
       name: "Default Lead Time",
       selectorField: "default_lead_time",
+      editable: true,
+      type: "number",
+    },
+    {
+      name: "Case",
+      selectorField: "case",
+      editable: true,
+      type: "number",
+    },
+    {
+      name: "Discontinued",
+      selectorField: "discontinued",
       type: "number",
     },
     {
@@ -111,21 +126,21 @@ export default function SKUComp() {
       selectorField: "location",
     },
     {
-      name: "Quantity",
+      name: "On Hand",
       selectorField: "quantity",
       type: "number",
     },
-    {
-      name: "Custom Lead Time",
-      selectorField: "custom_lead_time",
-      editable: true,
+    // {
+    //   name: "Custom Lead Time",
+    //   selectorField: "custom_lead_time",
+    //   editable: true,
 
-      type: "number",
-    },
+    //   type: "number",
+    // },
     {
-      name: "Reorder Point",
+      name: "Target",
       selectorField: "reorder_point",
-
+      editable: true,
       type: "number",
     },
     {
@@ -147,7 +162,10 @@ export default function SKUComp() {
 
   const handleSave = async (updatedData) => {
     let res = await updateData(updatedData, updatedData?.id, "skus");
-    console.log("Update response:", res);
+    if (res.id) {
+      getContainersData();
+      toast.success("Data updated successfully");
+    }
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
   };
@@ -157,9 +175,9 @@ export default function SKUComp() {
       let res = await getGraphData(
         "daily-consumption/inventory-trend/",
         row.sku,
-        dates?.start || dayjs().subtract(1, "week").format("YYYY-MM-DD"),
+        dates?.start || dayjs().subtract(16, "week").format("YYYY-MM-DD"),
         dates?.end || dayjs().format("YYYY-MM-DD"),
-        dates?.bucket || "daily"
+        dates?.bucket || "weekly"
       );
       setState((prev) => ({ ...prev, graphData: res, rowData: row }));
     }

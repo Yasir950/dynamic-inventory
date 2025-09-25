@@ -981,7 +981,6 @@ export const getData = async (url, start = "", end = "") => {
     requestOptions
   );
   let json = res.data;
-  console.log(res.data);
   return json;
 };
 export const updateData = async (userData, id, url) => {

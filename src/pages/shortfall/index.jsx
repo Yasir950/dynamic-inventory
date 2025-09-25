@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { updateData } from "apiservices";
+import { getGraphData, updateData } from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import Example from "pages/vehicles";
@@ -12,6 +12,10 @@ import { FilterIcon } from "assets/images/users/Svg";
 import { getReportData } from "../../apiservices";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
+import Alert from "misc/dialogue";
+import { Box } from "@mui/material";
+import ApexChart from "../dashboard/MonthlyBarChart";
+import { ExportBtn } from "styled/styled";
 
 dayjs.extend(isoWeek);
 // ===============================|| COMPONENT - SKU ||=============================== //
@@ -19,7 +23,7 @@ dayjs.extend(isoWeek);
 function createData(item) {
   return {
     sku: item.sku,
-    // description: item.description,
+    case: item.case,
     target: item.target,
     onhand: item.onhand,
     replenishment: item.replenishment,
@@ -87,20 +91,26 @@ export default function ShortfallComp() {
       type: "number",
     },
     {
-      name: "Replenishment",
+      name: "On Order",
       selectorField: "replenishment",
       type: "number",
     },
     {
-      name: "Consumption",
-      selectorField: "consumption",
+      name: "Case",
+      selectorField: "case",
+      editable: true,
       type: "number",
     },
-    {
-      name: "Total Available",
-      selectorField: "total_available",
-      type: "number",
-    },
+    // {
+    //   name: "Consumption",
+    //   selectorField: "consumption",
+    //   type: "number",
+    // },
+    // {
+    //   name: "Total Available",
+    //   selectorField: "total_available",
+    //   type: "number",
+    // },
     {
       name: "Shortfall",
       selectorField: "shortfall",
@@ -111,8 +121,30 @@ export default function ShortfallComp() {
   const handleSave = async (updatedData) => {
     let res = await updateData(updatedData, updatedData?.id, "skus");
     console.log("Update response:", res);
+    if (res.id) {
+      getContainersData();
+      toast.success("Data updated successfully");
+    }
     // call your API to persist updates here
     // e.g. updateSkuBulk(updatedData) or send patch requests per-row
+  };
+  const handleAddOpen = async (row = "", dates) => {
+    if (row.sku) {
+      let res = await getGraphData(
+        "daily-consumption/inventory-trend/",
+        row.sku,
+        dates?.start || dayjs().subtract(16, "week").format("YYYY-MM-DD"),
+        dates?.end || dayjs().format("YYYY-MM-DD"),
+        dates?.bucket || "weekly"
+      );
+      setState((prev) => ({ ...prev, graphData: res, rowData: row }));
+    }
+    if (!dates) {
+      setState((prev) => ({
+        ...prev,
+        showGraph: !prev.showGraph,
+      }));
+    }
   };
   const applyDates = ({ start, end }) => {
     getContainersData(start, end);
@@ -144,6 +176,26 @@ export default function ShortfallComp() {
         columnsConfig={columnsConfig}
         onSave={handleSave}
         loading={pending}
+        rowClick={(row) => handleAddOpen(row)}
+      />
+      <Alert
+        open={state.showGraph}
+        close={handleAddOpen}
+        content={
+          <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
+            <ApexChart
+              data={state.graphData}
+              set={(dates) => handleAddOpen(state.rowData, dates)}
+            />
+          </Box>
+        }
+        action={
+          <>
+            <ExportBtn onClick={handleAddOpen} sx={{ width: "120px" }}>
+              cancel
+            </ExportBtn>
+          </>
+        }
       />
     </Grid>
   );

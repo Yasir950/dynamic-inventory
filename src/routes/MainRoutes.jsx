@@ -27,11 +27,7 @@ const MainRoutes = {
   children: [
     {
       path: "/",
-      element: <DashboardDefault />,
-    },
-    {
-      path: "/dashboard",
-      element: <DashboardDefault />,
+      element: <SKUComp />,
     },
     {
       path: "/view-pdf",

@@ -341,6 +341,7 @@ const EditableTable = ({
         onRowClicked={(row, event) => {
           rowClick && rowClick(row);
         }}
+        fixedHeader
       />
     </div>
   );
