@@ -30,7 +30,7 @@ function createData(item) {
     min_inventory_floor: item.min_inventory_floor,
     default_lead_time: item.default_lead_time,
     custom_lead_time: item.custom_lead_time,
-    reorder_point: item.reorder_point,
+    // reorder_point: item.reorder_point,
     sku_reliability_factor: item.sku_reliability_factor,
     effective_lead_time: item.effective_lead_time,
     stock_date: item.stock_date,
@@ -139,7 +139,7 @@ export default function SKUComp() {
     // },
     {
       name: "Target",
-      selectorField: "reorder_point",
+      selectorField: "target",
       editable: true,
       type: "number",
     },
