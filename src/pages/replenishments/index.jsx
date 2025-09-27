@@ -22,7 +22,7 @@ function createData(item) {
     location: item.location,
     quantity_ordered: item.quantity_ordered,
     quantity_received: item.quantity_received,
-    order_date: item.order_date,
+    po_create_date: item.po_create_date,
     expected_arrival_date: item.expected_arrival_date,
     actual_received_date: item.actual_received_date,
     created_at: item.created_at,
@@ -73,7 +73,6 @@ export default function ReplenishmentComp() {
     },
     { name: "SKU", selectorField: "sku", editable: true },
     { name: "Supplier", selectorField: "supplier", editable: true },
-    { name: "Location", selectorField: "location", editable: true },
     {
       name: "Qty Ordered",
       selectorField: "quantity_ordered",
@@ -87,14 +86,8 @@ export default function ReplenishmentComp() {
       editable: true,
     },
     {
-      name: "Order Date",
-      selectorField: "order_date",
-      type: "date",
-      editable: true,
-    },
-    {
-      name: "Expected Arrival",
-      selectorField: "expected_arrival_date",
+      name: "PO Created",
+      selectorField: "po_create_date",
       type: "date",
       editable: true,
     },
