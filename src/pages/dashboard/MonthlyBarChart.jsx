@@ -1,10 +1,10 @@
-import { FormControl, Grid } from "@mui/material";
+import { FormControl, Grid, Typography } from "@mui/material";
 import { FilterIcon } from "assets/images/users/Svg";
 import Example from "pages/vehicles";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const StackedWithLine = ({ data, set }) => {
+const StackedWithLine = ({ data, set, sku }) => {
   // build categories
   const { target, zones, trend } = data || {};
 
@@ -93,6 +93,17 @@ const StackedWithLine = ({ data, set }) => {
   };
   return (
     <div>
+      <Typography
+        sx={{
+          textAlign: "center",
+          m: 1,
+          color: "#000",
+          fontWeight: "bold",
+          fontSize: "18px",
+        }}
+      >
+        SKU: {sku}
+      </Typography>
       <div
         style={{
           width: "328px",

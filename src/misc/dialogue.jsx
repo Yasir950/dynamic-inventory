@@ -13,16 +13,15 @@ export default function Alert({ open, close, title, content, action }) {
         open={open}
         onClose={close}
         aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description">
+        aria-describedby="alert-dialog-description"
+      >
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {content}
           </DialogContentText>
         </DialogContent>
-          <DialogActions>
-            {action}
-          </DialogActions>
+        <DialogActions>{action}</DialogActions>
       </Dialog>
     </div>
   );

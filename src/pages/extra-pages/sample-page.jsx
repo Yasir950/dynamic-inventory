@@ -296,7 +296,7 @@ const EditableTable = ({
           {/* {name} */}
         </Typography>
         <Stack direction={"row"} spacing={2}>
-          <Export onExport={() => downloadCSV(filteredRows)} />
+          <Export onExport={() => downloadCSV(data)} />
           <FormControl
             sx={{
               width: { xs: "100%", md: 210 },
@@ -324,7 +324,7 @@ const EditableTable = ({
         </Stack>
       </Stack>
     );
-  }, [data]);
+  }, [data, initialData]);
   return (
     <div>
       <DataTable

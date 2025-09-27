@@ -224,11 +224,12 @@ export default function SKUComp() {
       />
       <Alert
         open={state.showGraph}
-        close={handleAddOpen}
+        close={() => setState({ ...state, showGraph: false })}
         content={
           <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
             <ApexChart
               data={state.graphData}
+              sku={state.rowData?.sku}
               set={(dates) => handleAddOpen(state.rowData, dates)}
             />
           </Box>
