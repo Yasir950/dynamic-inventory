@@ -962,26 +962,43 @@ export const updateRatesData = async (userData, id) => {
     toast.error(error.response?.data?.email?.[0] || "Something went wrong");
   }
 };
+const logout = () => {
+  localStorage.clear();
+  window.location.href = "/"; // or your login route
+};
 export const getData = async (url, start = "", end = "") => {
-  const token = localStorage.getItem("token");
-  const myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + token);
-  const raw = "";
+  try {
+    const token = localStorage.getItem("token");
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+    const raw = "";
 
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-  let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
-    requestOptions
-  );
-  let json = res.data;
-  return json;
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    let res = await axios.get(
+      `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
+      requestOptions
+    );
+    let json = res.data;
+    return json;
+  } catch (error) {
+    // Handle unauthorized (401) or forbidden (403)
+    if (
+      error.response &&
+      (error.response.status === 401 || error.response.status === 403)
+    ) {
+      logout();
+    } else {
+      console.error("API error:", error);
+      alert("Something went wrong while fetching data!");
+    }
+  }
 };
 export const updateData = async (userData, id, url) => {
   const token = localStorage.getItem("token");
