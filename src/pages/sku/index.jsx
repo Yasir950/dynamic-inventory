@@ -157,7 +157,6 @@ export default function SKUComp() {
     },
     { name: "Stock Date", selectorField: "stock_date" },
     { name: "Supplier Name", selectorField: "supplier_name" },
-    { name: "Target", selectorField: "target" },
   ];
 
   const handleSave = async (updatedData) => {

@@ -55,7 +55,7 @@ export default function ShortfallComp() {
       setPending(true);
       const res = await getReportData(
         "sku-shortfall-report",
-        start ? start : dayjs().format("YYYY-MM-DD"),
+        start ? start : dayjs().subtract(15, "week").format("YYYY-MM-DD"),
         end ? end : dayjs().format("YYYY-MM-DD")
       ); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
@@ -101,11 +101,11 @@ export default function ShortfallComp() {
       editable: true,
       type: "number",
     },
-    // {
-    //   name: "Consumption",
-    //   selectorField: "consumption",
-    //   type: "number",
-    // },
+    {
+      name: "Consumption",
+      selectorField: "consumption",
+      type: "number",
+    },
     // {
     //   name: "Total Available",
     //   selectorField: "total_available",

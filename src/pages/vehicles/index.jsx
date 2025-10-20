@@ -33,12 +33,7 @@ const DateRangeDropdown = ({ onApply, short, graph, target }) => {
     setAnchorEl(event.currentTarget);
   };
   useEffect(() => {
-    if (short) {
-      setDisplayValue(
-        `${dayjs().format("YYYY-MM-DD")} - ${dayjs().format("YYYY-MM-DD")}`
-      );
-    }
-    if (graph) {
+    if (graph || short) {
       setStart(dayjs().subtract(15, "week").format("YYYY-MM-DD"));
       setEnd(dayjs().format("YYYY-MM-DD"));
       setDisplayValue(
