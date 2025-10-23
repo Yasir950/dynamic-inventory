@@ -342,6 +342,7 @@ const EditableTable = ({
           rowClick && rowClick(row);
         }}
         fixedHeader
+        fixedHeaderScrollHeight="420px"
       />
     </div>
   );

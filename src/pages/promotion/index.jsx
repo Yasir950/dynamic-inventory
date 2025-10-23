@@ -30,10 +30,10 @@ dayjs.extend(isoWeek);
 function createData(item) {
   return {
     sku: item.sku,
-    current_target: item.current_target,
+    target: item.target,
     current_stock: item.current_stock,
-    avg_daily_consumption: item.avg_daily_consumption,
-    total_consumed: item.total_consumed,
+    season_multiplier: item.season_multiplier,
+    zone_trend: item.zone_trend,
     total_received: item.total_received,
     total_ordered: item.total_ordered,
     current_zone: item.current_zone,
@@ -45,7 +45,7 @@ const columnsConfig = [
   { name: "SKU", selectorField: "sku" },
   {
     name: "Current Target",
-    selectorField: "current_target",
+    selectorField: "target",
     type: "number",
   },
   {
@@ -54,29 +54,19 @@ const columnsConfig = [
     type: "number",
   },
   {
-    name: "Avg Daily Consumption",
-    selectorField: "avg_daily_consumption",
+    name: "Season Multiplier",
+    selectorField: "season_multiplier",
     type: "number",
   },
   {
-    name: "Total Consumed",
-    selectorField: "total_consumed",
-    type: "number",
-  },
-  {
-    name: "Total Received",
-    selectorField: "total_received",
-    type: "number",
-  },
-  {
-    name: "Total Ordered",
-    selectorField: "total_ordered",
+    name: "Recommended Target",
+    selectorField: "recommended_target",
     type: "number",
   },
   { name: "Current Zone", selectorField: "current_zone" },
   {
-    name: "Recommended Target",
-    selectorField: "recommended_target",
+    name: "Zone trend",
+    selectorField: "zone_trend",
     type: "number",
   },
 ];
@@ -309,6 +299,7 @@ export default function PromotionForecastComp() {
               data={state.graphData}
               sku={state.rowData?.sku}
               set={(dates) => handleAddOpen(state.rowData, dates)}
+              promotion={"true"}
             />
           </Box>
         }
