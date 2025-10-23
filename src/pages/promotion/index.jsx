@@ -4,7 +4,12 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import React, { useEffect, useState } from "react";
 import "style.css";
-import { getData, savePromotionForecast, updateData } from "apiservices";
+import {
+  getData,
+  getGraphData,
+  savePromotionForecast,
+  updateData,
+} from "apiservices";
 import EditableTable from "pages/extra-pages/sample-page";
 import { useDispatch, useSelector } from "react-redux";
 import Example from "pages/vehicles";
@@ -17,6 +22,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
+import ApexChart from "../dashboard/MonthlyBarChart";
 
 dayjs.extend(isoWeek);
 // ===============================|| COMPONENT - SKU ||=============================== //
@@ -79,14 +85,14 @@ export default function PromotionForecastComp() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
   const [pending, setPending] = useState(true);
-  const [state, setState] = useState({ userData: [] });
+  const [state, setState] = useState({ userData: [], showGraph: false });
   const dispatch = useDispatch();
   const updatedObj = useSelector((state) => state.user.updatedObj);
   const isAddForm = useSelector((state) => state.user.isAddForm);
+
   useEffect(() => {
     getContainersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,7 +101,11 @@ export default function PromotionForecastComp() {
   const getContainersData = async () => {
     try {
       setPending(true);
-      const res = await getData("inventory-target"); // assumed to return array of the objects you posted
+      const res = await getData(
+        "inventory-target",
+        dayjs().subtract(7, "week").format("YYYY-MM-DD"),
+        dayjs().format("YYYY-MM-DD")
+      ); // assumed to return array of the objects you posted
       if (!Array.isArray(res)) {
         console.warn("getData did not return an array:", res);
         setState((prev) => ({ ...prev, userData: [] }));
@@ -114,9 +124,23 @@ export default function PromotionForecastComp() {
     }
   };
 
-  const handleAddOpen = () => {
-    dispatch(changeForm());
-    dispatch(clearData());
+  const handleAddOpen = async (row = "", dates) => {
+    if (row.sku) {
+      let res = await getGraphData(
+        "daily-consumption/inventory-trend/",
+        row.sku,
+        dates?.start || dayjs().subtract(7, "week").format("YYYY-MM-DD"),
+        dates?.end || dayjs().format("YYYY-MM-DD"),
+        dates?.bucket || "weekly"
+      );
+      setState((prev) => ({ ...prev, graphData: res, rowData: row }));
+    }
+    if (!dates) {
+      setState((prev) => ({
+        ...prev,
+        showGraph: !prev.showGraph,
+      }));
+    }
   };
 
   const handleSave = async (updatedData) => {
@@ -171,6 +195,7 @@ export default function PromotionForecastComp() {
         columnsConfig={columnsConfig}
         onSave={handleSave}
         loading={pending}
+        rowClick={(row) => handleAddOpen(row)}
       />
       <Alert
         open={isAddForm}
@@ -272,6 +297,26 @@ export default function PromotionForecastComp() {
             <MyBtn sx={{ width: "120px" }} onClick={handleSubmit(onSubmit)}>
               Submit
             </MyBtn>
+          </>
+        }
+      />
+      <Alert
+        open={state.showGraph}
+        close={() => setState({ ...state, showGraph: false })}
+        content={
+          <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
+            <ApexChart
+              data={state.graphData}
+              sku={state.rowData?.sku}
+              set={(dates) => handleAddOpen(state.rowData, dates)}
+            />
+          </Box>
+        }
+        action={
+          <>
+            <ExportBtn onClick={handleAddOpen} sx={{ width: "120px" }}>
+              cancel
+            </ExportBtn>
           </>
         }
       />

@@ -26,7 +26,7 @@ function createData(item) {
     case: item.case,
     target: item.target,
     onhand: item.onhand,
-    replenishment: item.replenishment,
+    order_on: item.order_on,
     consumption: item.consumption,
     total_available: item.total_available,
     shortfall: item.shortfall,
@@ -92,7 +92,7 @@ export default function ShortfallComp() {
     },
     {
       name: "On Order",
-      selectorField: "replenishment",
+      selectorField: "order_on",
       type: "number",
     },
     {
