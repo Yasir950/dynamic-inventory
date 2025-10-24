@@ -98,7 +98,6 @@ export default function ShortfallComp() {
     {
       name: "Case",
       selectorField: "case",
-      editable: true,
       type: "number",
     },
     {

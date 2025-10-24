@@ -14,7 +14,8 @@ import dayjs from "dayjs";
 import { ExportBtn } from "styled/styled";
 import { DeleteIcon, EditIcon, ExportIcon } from "assets/images/users/Svg";
 import { SearchOutlined } from "@ant-design/icons";
-
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 /**
  * Props:
  * - initialData: array of row objects (from API)
@@ -243,21 +244,33 @@ const EditableTable = ({
 
     return result;
   }
-  function downloadCSV(array) {
-    const link = document.createElement("a");
-    let csv = convertArrayOfObjectsToCSV(array);
-    if (csv == null) return;
+  function downloadExcel(array) {
+    if (!array || !array.length) return;
 
-    const filename = "export.csv";
+    // ✅ Remove "rowIndex" or any unwanted keys
+    const cleanedArray = array.map(
+      ({ _rowIndex, created_at, updated_at, ...rest }) => rest
+    );
 
-    if (!csv.match(/^data:text\/csv/i)) {
-      csv = `data:text/csv;charset=utf-8,${csv}`;
-    }
+    // Convert JSON to worksheet
+    const worksheet = XLSX.utils.json_to_sheet(cleanedArray);
 
-    link.setAttribute("href", encodeURI(csv));
-    link.setAttribute("download", filename);
-    link.click();
+    // Create a new workbook and append the worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+
+    // Generate Excel file and trigger download
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+
+    const data = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    saveAs(data, "export.xlsx");
   }
+
   const Export = ({ onExport }) => (
     <ExportBtn onClick={(e) => onExport(e.target.value)}>
       <Stack
@@ -296,7 +309,7 @@ const EditableTable = ({
           {/* {name} */}
         </Typography>
         <Stack direction={"row"} spacing={2}>
-          <Export onExport={() => downloadCSV(data)} />
+          <Export onExport={() => downloadExcel(data)} />
           <FormControl
             sx={{
               width: { xs: "100%", md: 210 },

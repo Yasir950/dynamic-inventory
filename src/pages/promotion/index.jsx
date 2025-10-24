@@ -34,8 +34,6 @@ function createData(item) {
     current_stock: item.current_stock,
     season_multiplier: item.season_multiplier,
     zone_trend: item.zone_trend,
-    total_received: item.total_received,
-    total_ordered: item.total_ordered,
     current_zone: item.current_zone,
     recommended_target: item.recommended_target,
   };

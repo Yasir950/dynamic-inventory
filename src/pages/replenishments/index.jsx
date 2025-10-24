@@ -19,7 +19,6 @@ function createData(item) {
     purchase_order_number: item.purchase_order_number,
     sku: item.sku,
     supplier: item.supplier,
-    location: item.location,
     quantity_ordered: item.quantity_ordered,
     quantity_received: item.quantity_received,
     po_create_date: item.po_create_date,
