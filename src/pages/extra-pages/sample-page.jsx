@@ -13,9 +13,14 @@ import DataTable from "react-data-table-component";
 import dayjs from "dayjs";
 import { ExportBtn } from "styled/styled";
 import { DeleteIcon, EditIcon, ExportIcon } from "assets/images/users/Svg";
-import { SearchOutlined } from "@ant-design/icons";
+import { DownloadOutlined, SearchOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import {
+  ImportContactsOutlined,
+  ImportExport,
+  ImportExportOutlined,
+} from "@mui/icons-material";
 /**
  * Props:
  * - initialData: array of row objects (from API)
@@ -32,6 +37,7 @@ const EditableTable = ({
   handleDelete,
   name,
   rowClick,
+  importModel = "",
 }) => {
   const [data, setData] = useState([]);
   const [editingCell, setEditingCell] = useState(null); // { rowId, field }
@@ -279,9 +285,24 @@ const EditableTable = ({
         justifyContent={"center"}
         spacing={1}
       >
-        <ExportIcon />
+        <DownloadOutlined style={{ marginTop: "4px", color: "#FF8900" }} />
         <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
           Export
+        </Typography>
+      </Stack>
+    </ExportBtn>
+  );
+  const Import = ({ onExport }) => (
+    <ExportBtn onClick={() => onExport()}>
+      <Stack
+        direction={"row"}
+        alignContent={"center"}
+        justifyContent={"center"}
+        spacing={1}
+      >
+        <ImportExport style={{ color: "green" }} />
+        <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
+          Import
         </Typography>
       </Stack>
     </ExportBtn>
@@ -310,6 +331,7 @@ const EditableTable = ({
         </Typography>
         <Stack direction={"row"} spacing={2}>
           <Export onExport={() => downloadExcel(data)} />
+          {importModel && <Import onExport={() => importModel()} />}
           <FormControl
             sx={{
               width: { xs: "100%", md: 210 },

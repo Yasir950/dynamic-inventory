@@ -18,6 +18,7 @@ import Alert from "misc/dialogue";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 dayjs.extend(isoWeek);
 function createData(item) {
@@ -48,6 +49,7 @@ function createData(item) {
 
 export default function SKUComp() {
   const [pending, setPending] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const [state, setState] = useState({
     userData: [],
     showGraph: false,
@@ -55,6 +57,7 @@ export default function SKUComp() {
     endDate: "2025-09-09",
     graphData: [],
     rowData: {},
+    import: false,
   });
 
   const updatedObj = useSelector((state) => state.user.updatedObj);
@@ -192,6 +195,46 @@ export default function SKUComp() {
   const applyDates = ({ start, end, bucket }) => {
     getContainersData(start, end, bucket);
   };
+  const importData = () => {
+    setState((prev) => ({ ...prev, import: !prev.import }));
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return toast.error("Please select a file to upload");
+
+    await handleUpload(file);
+  };
+
+  const handleUpload = async (file) => {
+    try {
+      setUploading(true);
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await axios.post(
+        "https://inventory.nikahgo.com/api/import-sku-excel/",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (res.status === 200) {
+        toast.success("File uploaded successfully!");
+        importData(); // close modal
+        getContainersData();
+      } else {
+        toast.error("Upload failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Error uploading file.");
+    } finally {
+      setUploading(false);
+    }
+  };
   return (
     <Grid item xs={12} md={12} lg={12}>
       <Stack justifyContent={"space-between"} flexDirection={"row"}>
@@ -220,6 +263,7 @@ export default function SKUComp() {
         onSave={handleSave}
         loading={pending}
         rowClick={(row) => handleAddOpen(row)}
+        importModel={() => importData()}
       />
       <Alert
         open={state.showGraph}
@@ -236,6 +280,43 @@ export default function SKUComp() {
         action={
           <>
             <ExportBtn onClick={handleAddOpen} sx={{ width: "120px" }}>
+              cancel
+            </ExportBtn>
+          </>
+        }
+      />
+      <Alert
+        open={state.import}
+        close={importData}
+        content={
+          <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              Please upload your SKU Excel file:
+            </Typography>
+
+            <input
+              type="file"
+              accept=".xlsx,.xls"
+              onChange={handleFileChange}
+              disabled={uploading}
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: "10px",
+                width: "100%",
+              }}
+            />
+
+            {uploading && (
+              <Typography sx={{ mt: 2, fontSize: "14px", color: "#666" }}>
+                Uploading...
+              </Typography>
+            )}
+          </Box>
+        }
+        action={
+          <>
+            <ExportBtn onClick={importData} sx={{ width: "120px" }}>
               cancel
             </ExportBtn>
           </>

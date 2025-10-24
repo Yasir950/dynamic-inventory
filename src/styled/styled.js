@@ -91,12 +91,13 @@ export const AddBtn = styled(Button)({
 });
 export const ExportBtn = styled(Button)({
   // width: '150px',
-  height: '35px',
+  height: '30px',
   padding: '15px 30px 15px 30px',
   borderRadius: '8px',
   border: '1px solid #D0D5DD',
   color: '#344054',
   textAlign: 'center',
+  marginTop:'20px'
 
   
 });
