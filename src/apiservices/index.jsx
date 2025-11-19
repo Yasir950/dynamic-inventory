@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const login = async (userData) => {
   try {
     let res = await axios.post(
-      `https://inventory.nikahgo.com/api/auth/login`,
+      `https://inventron.ezauq.com/api/auth/login`,
       userData
     );
     let json = res.data;
@@ -54,7 +54,7 @@ export const getUsersData = async () => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/auth/users/`,
+    `https://inventron.ezauq.com/api/auth/users/`,
     requestOptions
   );
   let json = res.data;
@@ -982,7 +982,7 @@ export const getData = async (url, start = "", end = "") => {
       "Content-Type": "application/json",
     };
     let res = await axios.get(
-      `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
+      `https://inventron.ezauq.com/api/${url}?start_date=${start}&end_date=${end}`,
       requestOptions
     );
     let json = res.data;
@@ -1006,7 +1006,7 @@ export const updateData = async (userData, id, url) => {
   let config = {
     method: "patch",
     maxBodyLength: Infinity,
-    url: `https://inventory.nikahgo.com/api/${url}/${id}/`,
+    url: `https://inventron.ezauq.com/api/${url}/${id}/`,
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1027,7 +1027,7 @@ export const deleteData = async (url, id) => {
   let config = {
     method: "delete",
     maxBodyLength: Infinity,
-    url: `https://inventory.nikahgo.com/api/${url}/${id}/`,
+    url: `https://inventron.ezauq.com/api/${url}/${id}/`,
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1047,7 +1047,7 @@ export const saveForecast = async (userData) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "https://inventory.nikahgo.com/api/forecasts/",
+    url: "https://inventron.ezauq.com/api/forecasts/",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1069,7 +1069,7 @@ export const savePromotionForecast = async (userData) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "https://inventory.nikahgo.com/api/promotion-forecasts/",
+    url: "https://inventron.ezauq.com/api/promotion-forecasts/",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
@@ -1099,7 +1099,7 @@ export const getWeeklyData = async (url, num) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}?week_number=${num}`,
+    `https://inventron.ezauq.com/api/${url}?week_number=${num}`,
     requestOptions
   );
   let json = res.data;
@@ -1120,7 +1120,7 @@ export const getGraphData = async (url, sku, start, end, bucket) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}?sku=${sku}&start_date=${start}&end_date=${end}&bucket=${bucket}`,
+    `https://inventron.ezauq.com/api/${url}?sku=${sku}&start_date=${start}&end_date=${end}&bucket=${bucket}`,
     requestOptions
   );
   let json = res.data;
@@ -1141,7 +1141,7 @@ export const getReportData = async (url, start, end) => {
     "Content-Type": "application/json",
   };
   let res = await axios.get(
-    `https://inventory.nikahgo.com/api/${url}?start_date=${start}&end_date=${end}`,
+    `https://inventron.ezauq.com/api/${url}?start_date=${start}&end_date=${end}`,
     requestOptions
   );
   let json = res.data;

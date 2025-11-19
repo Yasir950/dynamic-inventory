@@ -214,7 +214,7 @@ export default function SKUComp() {
       formData.append("file", file);
 
       const res = await axios.post(
-        "https://inventory.nikahgo.com/api/import-sku-excel/",
+        "https://inventron.ezauq.com/api/import-sku-excel/",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
