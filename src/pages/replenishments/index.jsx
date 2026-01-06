@@ -10,6 +10,11 @@ import EditableTable from "pages/extra-pages/sample-page";
 import { useSelector } from "react-redux";
 import { FilterIcon } from "assets/images/users/Svg";
 import Example from "pages/vehicles";
+import { ExportBtn } from "styled/styled";
+import { Box } from "@mui/material";
+import Alert from "misc/dialogue";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 // ===============================|| COMPONENT - SKU ||=============================== //
 
@@ -31,7 +36,8 @@ function createData(item) {
 
 export default function ReplenishmentComp() {
   const [pending, setPending] = useState(true);
-  const [state, setState] = useState({ userData: [] });
+  const [state, setState] = useState({ userData: [], import: false });
+  const [uploading, setUploading] = useState(false);
 
   const updatedObj = useSelector((state) => state.user.updatedObj);
 
@@ -108,6 +114,44 @@ export default function ReplenishmentComp() {
   const applyDates = ({ start, end }) => {
     getContainersData(start, end);
   };
+  const importData = () => {
+    setState((prev) => ({ ...prev, import: !prev.import }));
+  };
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return toast.error("Please select a file to upload");
+
+    await handleUpload(file);
+  };
+  const handleUpload = async (file) => {
+    try {
+      setUploading(true);
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await axios.post(
+        "https://inventron.ezauq.com/api/import_replenishment_excel/",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      if (res.status === 200) {
+        toast.success("File uploaded successfully!");
+        importData(); // close modal
+        getContainersData();
+      } else {
+        toast.error("Upload failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast.error("Error uploading file.");
+    } finally {
+      setUploading(false);
+    }
+  };
   return (
     <Grid item xs={12} md={12} lg={12}>
       <Stack justifyContent={"space-between"} flexDirection={"row"}>
@@ -135,6 +179,44 @@ export default function ReplenishmentComp() {
         columnsConfig={columnsConfig}
         onSave={handleSave}
         loading={pending}
+        importModel={() => importData()}
+      />
+      <Alert
+        open={state.import}
+        close={importData}
+        content={
+          <Box sx={{ width: "90%", margin: "auto", marginTop: 4 }}>
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              Please upload your Replenishment Excel file:
+            </Typography>
+
+            <input
+              type="file"
+              accept=".xlsx,.xls"
+              onChange={handleFileChange}
+              disabled={uploading}
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                padding: "10px",
+                width: "100%",
+              }}
+            />
+
+            {uploading && (
+              <Typography sx={{ mt: 2, fontSize: "14px", color: "#666" }}>
+                Uploading...
+              </Typography>
+            )}
+          </Box>
+        }
+        action={
+          <>
+            <ExportBtn onClick={importData} sx={{ width: "120px" }}>
+              cancel
+            </ExportBtn>
+          </>
+        }
       />
     </Grid>
   );
